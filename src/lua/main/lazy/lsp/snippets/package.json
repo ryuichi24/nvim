@@ -1,0 +1,32 @@
+{
+    "name": "example-snippets",
+    "contributes": {
+        "snippets": [
+            {
+                "language": [
+                    "all"
+                ],
+                "path": "./all.code-snippets"
+            },
+            {
+                "language": [
+                    "javascript"
+                ],
+                "path": "./js.code-snippets"
+            },
+            {
+                "language": [
+                    "typescriptreact"
+                ],
+                "path": "./tsx.code-snippets"
+            },
+            {
+                "language": [
+                    "go"
+                ],
+                "path": "./go.code-snippets"
+            }
+        ]
+    }
+}
+

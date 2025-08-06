@@ -1,0 +1,9 @@
+{
+    "snip1": {
+        "prefix": "all",
+        "body": [
+            "expands? jumps? $1 $2 !"
+        ]
+    }
+}
+
