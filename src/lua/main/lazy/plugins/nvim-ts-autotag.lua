@@ -1,17 +1,18 @@
 return {
-    "nvim-ts-autotag",
+    "windwp/nvim-ts-autotag",
     config = function()
         -- Configure nvim-ts-autotag plugin
         require('nvim-ts-autotag').setup({
             opts = {
                 -- Defaults
-                enable_close = true, -- Auto close tags
-                enable_rename = true, -- Auto rename paired tag
+                enable_close = true,           -- Auto close tags
+                enable_rename = true,          -- Auto rename paired tag
                 enable_close_on_slash = false, -- Auto close on trailing </
             },
             -- Also configure for specific file types
             filetypes = {
-                'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx', 'rescript',
+                'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx',
+                'rescript',
                 'xml',
                 'php',
                 'markdown',
