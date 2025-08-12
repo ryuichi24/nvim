@@ -1,3 +1,4 @@
+-- build a data folder for lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim" -- $HOME/.local/share/nvim/lazy/lazy.nvim
 
 if not vim.loop.fs_stat(lazypath) then

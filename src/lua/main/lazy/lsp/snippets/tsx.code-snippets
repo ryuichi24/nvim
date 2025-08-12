@@ -1,0 +1,105 @@
+{
+  "template for React Function Component": {
+    "prefix": "rf",
+    "body": [
+      "import React from \"react\";",
+      "",
+      "interface Props {$1};",
+      "",
+      "export const ${TM_FILENAME_BASE}: React.FC<Props> = (props) => {",
+      "\tconst {} = props;",
+      "\treturn (<>${TM_FILENAME_BASE}</>);",
+      "}"
+    ],
+    "description": "Typescript React Function Component",
+    "scope": "typescriptreact"
+  },
+  "UI Component": {
+    "prefix": "uirf",
+    "body": [
+      "export const ${1:Card} = ({ className, ...props }: React.ComponentProps<\"${2:div}\">) => {",
+      "  return (",
+      "    <${2:div}",
+      "      {...props}",
+      "    />",
+      "  );",
+      "};"
+    ],
+    "description": "React component as UI component",
+  },
+  "Hook": {
+    "prefix": "hookfn",
+    "body": [
+      "export function use${1:Hook}() {",
+      "\t ${2}",
+      "\treturn {} as const;",
+      "}"
+    ],
+    "description": "Exported React hook with customizable name"
+  },
+  "react context template": {
+    "prefix": "rctx",
+    "description": "react context template",
+    "body": [
+      "import { createContext } from \"react\";",
+      "",
+      "export namespace $1Ctx {",
+      "  export type State = { dispatch: React.Dispatch<ReducerAction> } & ReducerState;",
+      "",
+      "  export type PublicState = Omit<$1Ctx.State, \"dispatch\" | keyof ReducerState>;",
+      "",
+      "  export type ReducerState = {};",
+      "",
+      "  export type ReducerAction = { type: \"\" };",
+      "}",
+      "",
+      "export const $1Ctx = createContext<$1Ctx.State>({ dispatch: () => {} }) as React.Context<$1Ctx.State> & { reducer: typeof reducer };",
+      "",
+      "function reducer(state: $1Ctx.ReducerState, action: $1Ctx.ReducerAction): $1Ctx.ReducerState {",
+      "  const { type } = action;",
+      "",
+      "  switch (type) {",
+      "    default: {",
+      "      return state;",
+      "    }",
+      "  }",
+      "}",
+      "",
+      "$1Ctx.reducer = reducer;"
+    ],
+    "scope": "typescriptreact,typescript",
+  },
+  "React Context Provider with useReducer": {
+    "prefix": "rctxp",
+    "body": [
+      "import React, { useReducer } from \"react\";",
+      "import { ${1}Ctx } from \"${2}\";",
+      "",
+      "export namespace ${1}CtxProvider {",
+      "  export type Props = {",
+      "    children?: React.ReactNode;",
+      "  } & ${1}Ctx.PublicState;",
+      "}",
+      "",
+      "export const ${1}CtxProvider: React.FC<${1}CtxProvider.Props> = (props) => {",
+      "  const { children, ...rest } = props;",
+      "  const [state, dispatch] = useReducer(${1}Ctx.reducer, {} as ${1}Ctx.ReducerState);",
+      "  return <${1}Ctx.Provider value={{ ...state, ...rest, dispatch }}>{children}</${1}Ctx.Provider>;",
+      "};"
+    ],
+    "description": "Creates a React context provider component with useReducer."
+  },
+  "useEffect basic": {
+    "prefix": "usef",
+    "body": [
+      "useEffect(() => {",
+      "  $1",
+      "",
+      "  return () => {",
+      "    $0",
+      "  };",
+      "}, []);"
+    ],
+    "description": "Basic useEffect with empty dependency array"
+  }
+}

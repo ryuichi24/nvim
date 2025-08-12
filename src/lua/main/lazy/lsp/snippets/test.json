@@ -1,0 +1,9 @@
+{
+    "test": {
+        "prefix": "test",
+        "body": [
+            "console.log($1, $2);"
+        ],
+        "description": "A test snippet"
+    }
+}

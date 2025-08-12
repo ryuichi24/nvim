@@ -1,0 +1,139 @@
+{
+  "Println with message": {
+    "prefix": "pl",
+    "body": [
+      "fmt.Println(\"${1:Hello}\")"
+    ],
+    "description": "I AjjkuuUt.Println with a customizable message",
+    "scope": "go"
+  },
+  "Printf with format and value": {
+    "prefix": "pf",
+    "body": [
+      "fmt.Printf(\"%${1}\\n\", ${2:value})"
+    ],
+    "description": "Insert fmt.Printf with customizable format specifier and value",
+    "scope": "go"
+  },
+  "Struct definition": {
+    "prefix": "stru",
+    "body": [
+      "type ${1:TypeName} struct {",
+      "\t${2:FieldName Type}",
+      "}"
+    ],
+    "description": "Define a Go struct with customizable name and field",
+    "scope": "go"
+  },
+  "Struct method": {
+    "prefix": "strum",
+    "body": [
+      "func (${2:receiver} *${1:StructName}) ${3:MethodName}() (${4}, error) {",
+      "\tfmt.Println(\"${3}\")",
+      "\treturn nil",
+      "}"
+    ],
+    "description": "Define a method for a struct with customizable receiver and method name",
+    "scope": "go"
+  },
+  "New struct and constructor": {
+    "prefix": "struset",
+    "body": [
+      "type ${1:StructName} struct {",
+      "\t//",
+      "}",
+      "",
+      "func New${1:StructName}() *${1:StructName} {",
+      "\treturn &${1:StructName}{}",
+      "}",
+      "",
+      "func (${2:receiver} *${1:StructName}) ${3:StructMethod}() (${4}, error) {",
+      "\tfmt.Println(\"${1:StructName}\")",
+      "\treturn nil",
+      "}"
+    ],
+    "description": "Create a new struct and constructor with a customizable name prefix",
+    "scope": "go"
+  },
+  "Switch statement": {
+    "prefix": "sw",
+    "body": [
+      "switch ${1:expr} {",
+      "\tcase \"${2:case1}\":",
+      "\t\tfmt.Print(\"switch case one\")",
+      "\tdefault:",
+      "\t\tfmt.Printf(\"switch case default\")",
+      "}"
+    ],
+    "description": "Go switch statement with customizable expression and first case",
+    "scope": "go"
+  },
+  "Time ticker": {
+    "prefix": "tic",
+    "body": [
+      "${1:ticker} := time.NewTicker(time.Duration(${2:2}) * time.${3:Second})",
+      "defer ${1}.Stop()"
+    ],
+    "description": "Create and defer stop of a time.Ticker",
+    "scope": "go"
+  },
+  "Select loop with default": {
+    "prefix": "selo",
+    "body": [
+      "for {",
+      "\tselect {",
+      "\tcase ${1:_} ${2:=:} <-${3:ch}:",
+      "\t\t${4:// handle message}",
+      "\tdefault:",
+      "\t\tfmt.Println(\"default case executed\")",
+      "\t}",
+      "}"
+    ],
+    "description": "for-select loop with customizable case and default handling",
+    "scope": "go"
+  },
+  "For range loop": {
+    "prefix": "fr",
+    "body": [
+      "for range ${1:collection} {",
+      "\t${0:// handle each item}",
+      "}"
+    ],
+    "description": "for range loop over a collection",
+    "scope": "go"
+  },
+  "If error fatalf": {
+    "prefix": "iferr",
+    "body": [
+      "if err != nil {",
+      "\t${1:log.Fatalf(\"Error: %v\", err)}",
+      "}"
+    ],
+    "description": "Checks if err is not nil and logs fatal error",
+    "scope": "go"
+  },
+  "Gin Handler": {
+    "prefix": "ginhandler",
+    "body": [
+      "package ${2}",
+      "",
+      "import (",
+      "  \"net/http\",",
+      "",
+      "  \"github.com/gin-gonic/gin\",",
+      "  \"github.com/nayasuite/bg-server/internal/tcp\"",
+      ")",
+      "",
+      "func MakeUiSettingsHandler(srvrCtx *tcp.ServerCtx) gin.HandlerFunc {",
+      "  return func(c *gin.Context) {",
+      "    GetUiSettingsHandler(c, srvrCtx)",
+      "  }",
+      "}",
+      "",
+      "func GetUiSettingsHandler(c *gin.Context, srvrCtx *tcp.ServerCtx) {",
+      "  c.JSON(http.StatusOK, gin.H{})",
+      "}"
+    ],
+    "description": "Creates a UI settings handler for a Gin web server using a ServerCtx"
+  }
+}

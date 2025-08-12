@@ -1,0 +1,9 @@
+{
+  "Console Shortcut": {
+    "prefix": "clg",
+    "body": ["console.log($1);", "hel$2llo"],
+    "description": "Log output to console",
+    "scope": "javascript,typescript,typescriptreact,javascriptreact"
+  }
+}
+
