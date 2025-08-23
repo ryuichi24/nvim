@@ -29,6 +29,7 @@ return {
         vim.keymap.set({ "n", "v" }, "<leader>oc", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
         vim.keymap.set("v", "<leader>oi",
             function()
+                -- https://codecompanion.olimorris.dev/configuration/inline-assistant.html
                 vim.api.nvim_feedkeys(":'<,'>CodeCompanion /buffer", "c", false)
             end, { desc = "CodeCompanion buffer on selection" })
 
