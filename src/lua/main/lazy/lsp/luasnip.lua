@@ -8,6 +8,6 @@ return {
     -- install jsregexp (optional!).
     build = "make install_jsregexp",
     init = function()
-        require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/lua/main/lazy/lsp/snippets/" } })
+        require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/src/lua/main/lazy/lsp/snippets/" } })
     end,
 }
