@@ -47,3 +47,15 @@ end, { silent = true })
 
 -- folding
 vim.keymap.set("n", "S", "za", { desc = "Fold lines on cursor." }) -- close current split windowim.keymap.set('n', '<leader>d', ':bdelete<CR> :bnext<CR>')
+-- Normal mode: search word under cursor
+vim.keymap.set("n", "/", function()
+    local word = vim.fn.expand("<cword>")
+    vim.fn.feedkeys("/" .. word, "n")
+end, { noremap = true, silent = true })
+
+-- Visual mode: search selected text
+vim.keymap.set("v", "/", function()
+    local text = get_visual_selection()
+    text = vim.fn.escape(text, [[/\]]) -- escape / and \
+    vim.fn.feedkeys("/" .. text, "n")
+end, { noremap = true, silent = true })
