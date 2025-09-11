@@ -107,5 +107,15 @@
       "}, []);"
     ],
     "description": "Basic useEffect with empty dependency array"
+  },
+    "React UI Component": {
+    "prefix": "ruic",
+    "body": [
+      "export const ${1:UIComp} = ({ className, ...props }: React.ComponentProps<\"${2:div}\"> & {}) => {",
+      "  const { ...rest } = props;",
+      "  return <${2} className={cn(\"\", className)} {...rest} />;",
+      "};"
+    ],
+    "description": "Creates a pure UI react component"
   }
 }
