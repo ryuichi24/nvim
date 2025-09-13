@@ -47,6 +47,30 @@ end, { silent = true })
 
 -- folding
 vim.keymap.set("n", "S", "za", { desc = "Fold lines on cursor." }) -- close current split windowim.keymap.set('n', '<leader>d', ':bdelete<CR> :bnext<CR>')
+
+-- Use Ctrl + A for select all, but keep original increment on numbers
+vim.keymap.set('n', '<C-a>', function()
+    local col = vim.fn.col('.')
+    local line = vim.fn.getline('.')
+    if line:sub(col, col):match('%d') then
+        -- If cursor is on a digit, do normal increment
+        return '<C-a>'
+    else
+        -- Otherwise select all
+        return 'ggVG'
+    end
+end, { expr = true, desc = 'Smart Ctrl+A (increment or select all)' })
+
+
+
+-- Function to get the visual selection
+local function get_visual_selection()
+    vim.cmd('noau normal! "vy"') -- yank selection into register v
+    local text = vim.fn.getreg('v')
+    vim.fn.setreg('v', {})       -- clear register
+    return text
+end
+
 -- Normal mode: search word under cursor
 vim.keymap.set("n", "/", function()
     local word = vim.fn.expand("<cword>")
