@@ -21,3 +21,23 @@ require("native.plugins.ufo")
 require("native.plugins.which-key")
 
 require("native.plugins.dressing")
+
+require("native.plugins.gitsigns")
+
+require("native.plugins.comment")
+
+require("native.plugins.visual-multi")
+
+require("native.plugins.web-devicons")
+
+require("native.plugins.auto-session")
+
+require("native.plugins.indent-blankline")
+
+require("native.plugins.mini-pairs")
+require("native.plugins.ts-autotag")
+
+require("native.plugins.lualine")
+
+require("native.plugins.vim-maximizer")
+require("native.plugins.surround")
