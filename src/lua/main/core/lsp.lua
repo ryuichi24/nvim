@@ -4,7 +4,6 @@ vim.lsp.enable({
     "vtsls"
 })
 
-
 vim.diagnostic.config({
     -- virtual_lines = true,
     virtual_text = true,
@@ -28,3 +27,7 @@ vim.diagnostic.config({
         },
     },
 })
+
+vim.keymap.set('i', '<C-Space>', function()
+    vim.lsp.completion.get()
+end)

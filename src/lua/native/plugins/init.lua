@@ -41,3 +41,4 @@ require("native.plugins.lualine")
 
 require("native.plugins.vim-maximizer")
 require("native.plugins.surround")
+

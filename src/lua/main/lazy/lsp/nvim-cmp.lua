@@ -19,7 +19,7 @@ return {
         }
     },
     config = function()
-        local cmp = require("cmp")
+        local cmp = require("src.lua.native.plugins.lsp_plugins.cmp")
 
         local luasnip = require("luasnip")
 
