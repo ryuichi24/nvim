@@ -11,27 +11,27 @@ vim.keymap.set('n', '<leader>bq', ':q<CR>', { desc = "Quit." })
 vim.keymap.set('n', '<leader>bk', ':qa<CR>', { desc = "Quit all." })
 
 -- window management
-vim.keymap.set("n", "<leader>wv", "<C-w>v", { desc = "Split window vertically" })     -- split window vertically
-vim.keymap.set("n", "<leader>wh", "<C-w>s", { desc = "Split window horizontally" })   -- split window horizontally
-vim.keymap.set("n", "<leader>we", "<C-w>=", { desc = "Make splits equal size" })      -- make split windows equal width & height
-vim.keymap.set("n", "<leader>wx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split windowim.keymap.set('n', '<leader>d', ':bdelete<CR> :bnext<CR>')
+vim.keymap.set("n", "<leader>wv", "<C-w>v", { desc = "Split window vertically" })             -- split window vertically
+vim.keymap.set("n", "<leader>wh", "<C-w>s", { desc = "Split window horizontally" })           -- split window horizontally
+vim.keymap.set("n", "<leader>we", "<C-w>=", { desc = "Make splits equal size" })              -- make split windows equal width & height
+vim.keymap.set("n", "<leader>wx", "<cmd>close<CR>", { desc = "Close current split" })         -- close current split windowim.keymap.set('n', '<leader>d', ':bdelete<CR> :bnext<CR>')
 vim.keymap.set("n", "<C-=>", ":vertical resize +5<CR>", { desc = "Reisze vertically by +5" }) -- close current split windowim.keymap.set('n', '<leader>d', ':bdelete<CR> :bnext<CR>')
 vim.keymap.set("n", "<C-->", ":vertical resize -5<CR>", { desc = "Reisze vertically by -5" }) -- close current split windowim.keymap.set('n', '<leader>d', ':bdelete<CR> :bnext<CR>')
 vim.keymap.set("n", "<C-0>", ":horizontal resize +5<CR>", { desc = "Reisze horizontally by +5" })
 vim.keymap.set("n", "<C-9>", ":horizontal resize -5<CR>", { desc = "Reisze horizontally by -5" })
 
--- Normal mode split navigation
-vim.keymap.set("n", "<C-h>", "<C-w>h", { silent = true })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { silent = true })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { silent = true })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { silent = true })
- 
--- Terminal mode split navigation (optional, if you use :terminal)
-vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], { silent = true })
-vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]], { silent = true })
-vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], { silent = true })
-vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], { silent = true })
-
+-- -- Normal mode split navigation
+-- vim.keymap.set("n", "<C-h>", "<C-w>h", { silent = true })
+-- vim.keymap.set("n", "<C-j>", "<C-w>j", { silent = true })
+-- vim.keymap.set("n", "<C-k>", "<C-w>k", { silent = true })
+-- vim.keymap.set("n", "<C-l>", "<C-w>l", { silent = true })
+--
+-- -- Terminal mode split navigation (optional, if you use :terminal)
+-- vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], { silent = true })
+-- vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]], { silent = true })
+-- vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], { silent = true })
+-- vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], { silent = true })
+--
 -- Folding
 vim.keymap.set("n", "S", "za", { desc = "Fold lines on cursor." })
 
