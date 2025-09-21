@@ -5,6 +5,8 @@ vim.pack.add({
     -- Code Snippet
     { src = "https://github.com/saadparwaiz1/cmp_luasnip" },
     { src = "https://github.com/L3MON4D3/LuaSnip" },
+    -- VSCode like
+    { src = "https://github.com/onsails/lspkind.nvim" },
 })
 local lspconfig = require("lspconfig")
 local cmp = require("cmp")
@@ -59,17 +61,31 @@ lspconfig.clangd.setup({
     settings = {}
 })
 
+local lspkind = require("lspkind")
+
 -- cmp
 cmp.setup({
+    completeopt = "menu,menuone,preview",
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
     }),
+    mapping = cmp.mapping.preset.insert({
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions,
+        ["<C-d>"] = cmp.mapping.scroll_docs(4),
+        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+    }),
+    formatting = {
+        format = lspkind.cmp_format({
+            maxwidth = 50,
+            ellipsis_char = "...",
+        }),
+    },
 })
 
 -- Setup Code Snippet
 local luasnip = require("luasnip.loaders.from_vscode")
 luasnip.lazy_load({ paths = { "~/.config/nvim/src/lua/main/lazy/lsp/snippets/" } })
-
