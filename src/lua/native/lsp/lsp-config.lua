@@ -65,7 +65,7 @@ local lspkind = require("lspkind")
 
 -- cmp
 cmp.setup({
-    completeopt = "menu,menuone,preview",
+    completeopt = "menu,menuone,preview,noinsert",
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "luasnip" },
