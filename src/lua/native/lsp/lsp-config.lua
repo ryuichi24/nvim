@@ -117,4 +117,4 @@ cmp.setup({
 
 -- Setup Code Snippet
 local luasnip = require("luasnip.loaders.from_vscode")
-luasnip.lazy_load({ paths = { "~/.config/nvim/src/lua/main/lazy/lsp/snippets/" } })
+luasnip.lazy_load({ paths = { "~/.config/nvim/src/lua/native/lsp/snippets/" } })
