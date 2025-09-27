@@ -7,6 +7,8 @@ vim.pack.add({
     { src = "https://github.com/L3MON4D3/LuaSnip" },
     -- VSCode like
     { src = "https://github.com/onsails/lspkind.nvim" },
+    -- Tailwind CSS
+    { src = "https://github.com/luckasRanarison/tailwind-tools.nvim" },
 })
 local lspconfig = require("lspconfig")
 local cmp = require("cmp")
@@ -127,3 +129,26 @@ cmp.setup.filetype("sql", {
 -- Setup Code Snippet
 local luasnip = require("luasnip.loaders.from_vscode")
 luasnip.lazy_load({ paths = { "~/.config/nvim/src/lua/native/lsp/snippets/" } })
+
+-- Tailwind CSS
+local tailwind_tools = require("tailwind-tools")
+-- https://github.com/luckasRanarison/tailwind-tools.nvim?tab=readme-ov-file#installation
+vim.api.nvim_create_autocmd('PackChanged', {
+    desc = 'Handle tailwind-tools.nvim updates',
+    group = vim.api.nvim_create_augroup('', { clear = true }),
+    callback = function(event)
+        if event.data.kind == 'update' and event.data.spec.name == 'tailwind-tools' then
+            vim.notify('tailwind-tools updated, running ... :UpdateRemotePlugins', vim.log.levels.INFO)
+            ---@diagnostic disable-next-line: param-type-mismatch
+            local ok = pcall(vim.cmd, 'UpdateRemotePlugins')
+            if ok then
+                vim.notify('UpdateRemotePlugins completed successfully!', vim.log.levels.INFO)
+            else
+                vim.notify('UpdateRemotePlugins command not available yet, skipping', vim.log.levels.WARN)
+            end
+        end
+    end,
+})
+
+tailwind_tools.setup({
+})
