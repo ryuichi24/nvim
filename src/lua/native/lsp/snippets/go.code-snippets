@@ -28,12 +28,12 @@
   "Struct method": {
     "prefix": "strum",
     "body": [
-      "func (${2:receiver} *${1:StructName}) ${3:MethodName}() (${4}, error) {",
+      "func (${2:this} *${1:StructName}) ${3:MethodName}() (${4}, error) {",
       "\tfmt.Println(\"${3}\")",
       "\treturn nil",
       "}"
     ],
-    "description": "Define a method for a struct with customizable receiver and method name",
+    "description": "Define a method for a struct with customizable this and method name",
     "scope": "go"
   },
   "New struct and constructor": {
@@ -47,7 +47,7 @@
       "\treturn &${1:StructName}{}",
       "}",
       "",
-      "func (${2:receiver} *${1:StructName}) ${3:StructMethod}() (${4}, error) {",
+      "func (${2:this} *${1:StructName}) ${3:StructMethod}() (${4}, error) {",
       "\tfmt.Println(\"${1:StructName}\")",
       "\treturn nil",
       "}"
