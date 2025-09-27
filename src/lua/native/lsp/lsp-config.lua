@@ -26,6 +26,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         opts.desc = "Go to declaration"
         vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- go to declaration
+
         opts.desc = "See available code actions"
         vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
     end,
@@ -112,6 +113,14 @@ cmp.setup({
             maxwidth = 50,
             ellipsis_char = "...",
         }),
+    },
+})
+
+
+cmp.setup.filetype("sql", {
+    sources = {
+        { name = "vim-dadbod-completion" },
+        { name = "buffer" },
     },
 })
 
