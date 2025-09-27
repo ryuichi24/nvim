@@ -1,8 +1,15 @@
-vim.g.mapleader = " " -- space as leader key
+-- space as leader key
+vim.g.mapleader = " "
+
+vim.keymap.set("v", "p", '"_dP', { desc = "Paste over currently selected text without yanking it" })
+
+-- Move lines up and down
+vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { desc = "Move down visually selected lines" })
+vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { desc = "Move up visually selected lines" })
 
 -- ESC hotkeys
-vim.keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jk" })
-vim.keymap.set("v", "q", "<ESC>", { desc = "Exit insert mode with Q" })
+vim.keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jj" })
+vim.keymap.set("v", "q", "<ESC>", { desc = "Exit visual mode with q" })
 
 -- Buffer control
 vim.keymap.set('n', '<leader>bu', ':update<CR> :source<CR>', { desc = "Update buffer." })
@@ -11,27 +18,15 @@ vim.keymap.set('n', '<leader>bq', ':q<CR>', { desc = "Quit." })
 vim.keymap.set('n', '<leader>bk', ':qa<CR>', { desc = "Quit all." })
 
 -- window management
-vim.keymap.set("n", "<leader>wv", "<C-w>v", { desc = "Split window vertically" })             -- split window vertically
-vim.keymap.set("n", "<leader>wh", "<C-w>s", { desc = "Split window horizontally" })           -- split window horizontally
-vim.keymap.set("n", "<leader>we", "<C-w>=", { desc = "Make splits equal size" })              -- make split windows equal width & height
-vim.keymap.set("n", "<leader>wx", "<cmd>close<CR>", { desc = "Close current split" })         -- close current split windowim.keymap.set('n', '<leader>d', ':bdelete<CR> :bnext<CR>')
-vim.keymap.set("n", "<C-=>", ":vertical resize +5<CR>", { desc = "Reisze vertically by +5" }) -- close current split windowim.keymap.set('n', '<leader>d', ':bdelete<CR> :bnext<CR>')
-vim.keymap.set("n", "<C-->", ":vertical resize -5<CR>", { desc = "Reisze vertically by -5" }) -- close current split windowim.keymap.set('n', '<leader>d', ':bdelete<CR> :bnext<CR>')
-vim.keymap.set("n", "<C-0>", ":horizontal resize +5<CR>", { desc = "Reisze horizontally by +5" })
-vim.keymap.set("n", "<C-9>", ":horizontal resize -5<CR>", { desc = "Reisze horizontally by -5" })
+vim.keymap.set("n", "<leader>wv", "<C-w>v", { desc = "Split window vertically" })
+vim.keymap.set("n", "<leader>wh", "<C-w>s", { desc = "Split window horizontally" })
+vim.keymap.set("n", "<leader>we", "<C-w>=", { desc = "Make splits equal size" })
+vim.keymap.set("n", "<leader>wx", "<cmd>close<CR>", { desc = "Close current split" })
+vim.keymap.set("n", "<leader>wb", ":vertical resize +5<CR>", { desc = "Reisze vertically by +5" })
+vim.keymap.set("n", "<leader>wc", ":vertical resize -5<CR>", { desc = "Reisze vertically by -5" })
+vim.keymap.set("n", "<leader>wj", ":horizontal resize +5<CR>", { desc = "Reisze horizontally by +5" })
+vim.keymap.set("n", "<leader>wg", ":horizontal resize -5<CR>", { desc = "Reisze horizontally by -5" })
 
--- -- Normal mode split navigation
--- vim.keymap.set("n", "<C-h>", "<C-w>h", { silent = true })
--- vim.keymap.set("n", "<C-j>", "<C-w>j", { silent = true })
--- vim.keymap.set("n", "<C-k>", "<C-w>k", { silent = true })
--- vim.keymap.set("n", "<C-l>", "<C-w>l", { silent = true })
---
--- -- Terminal mode split navigation (optional, if you use :terminal)
--- vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], { silent = true })
--- vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]], { silent = true })
--- vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], { silent = true })
--- vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], { silent = true })
---
 -- Folding
 vim.keymap.set("n", "S", "za", { desc = "Fold lines on cursor." })
 
