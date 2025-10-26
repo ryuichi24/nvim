@@ -12,10 +12,10 @@ vim.keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jj" })
 vim.keymap.set("v", "q", "<ESC>", { desc = "Exit visual mode with q" })
 
 -- Buffer control
-vim.keymap.set('n', '<leader>bu', ':update<CR> :source<CR>', { desc = "Update buffer." })
-vim.keymap.set('n', '<leader>s', ':write<CR>', { desc = "Save buffer." })
-vim.keymap.set('n', '<leader>bq', ':q<CR>', { desc = "Quit." })
-vim.keymap.set('n', '<leader>bk', ':qa<CR>', { desc = "Quit all." })
+vim.keymap.set("n", "<leader>bu", ":update<CR> :source<CR>", { desc = "Update buffer." })
+vim.keymap.set("n", "<leader>s", ":write<CR>", { desc = "Save buffer." })
+vim.keymap.set("n", "<leader>bq", ":q<CR>", { desc = "Quit." })
+vim.keymap.set("n", "<leader>bk", ":qa<CR>", { desc = "Quit all." })
 
 -- window management
 vim.keymap.set("n", "<leader>wv", "<C-w>v", { desc = "Split window vertically" })
@@ -32,14 +32,14 @@ vim.keymap.set("n", "S", "za", { desc = "Fold lines on cursor." })
 
 -- Serach
 vim.keymap.set("n", "/", function()
-    local word = vim.fn.expand("<cword>")
-    vim.fn.feedkeys("/" .. word, "n")
+	local word = vim.fn.expand("<cword>")
+	vim.fn.feedkeys("/" .. word, "n")
 end, { noremap = true, silent = true, desc = "Search word under cursor" })
 
 vim.keymap.set("v", "/", function()
-    local text = get_visual_selection()
-    text = vim.fn.escape(text, [[/\]]) -- escape / and \
-    vim.fn.feedkeys("/" .. text, "n")
+	local text = get_visual_selection()
+	text = vim.fn.escape(text, [[/\]]) -- escape / and \
+	vim.fn.feedkeys("/" .. text, "n")
 end, { noremap = true, silent = true, desc = "Search visually selected text" })
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true, desc = "Clear search highlight" })

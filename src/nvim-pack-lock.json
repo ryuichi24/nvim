@@ -1,0 +1,157 @@
+{
+  "plugins": {
+    "Comment.nvim": {
+      "rev": "e30b7f2",
+      "src": "https://github.com/numToStr/Comment.nvim"
+    },
+    "CopilotChat.nvim": {
+      "rev": "f68deee",
+      "src": "https://github.com/CopilotC-Nvim/CopilotChat.nvim"
+    },
+    "LuaSnip": {
+      "rev": "7381330",
+      "src": "https://github.com/L3MON4D3/LuaSnip"
+    },
+    "auto-session": {
+      "rev": "517a757",
+      "src": "https://github.com/rmagatti/auto-session"
+    },
+    "bufferline.nvim": {
+      "rev": "655133c",
+      "src": "https://github.com/akinsho/bufferline.nvim"
+    },
+    "cmp-nvim-lsp": {
+      "rev": "bd5a7d6",
+      "src": "https://github.com/hrsh7th/cmp-nvim-lsp"
+    },
+    "cmp_luasnip": {
+      "rev": "98d9cb5",
+      "src": "https://github.com/saadparwaiz1/cmp_luasnip"
+    },
+    "conform.nvim": {
+      "rev": "fbcb4fa",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "copilot.vim": {
+      "rev": "da369d9",
+      "src": "https://github.com/github/copilot.vim"
+    },
+    "dressing.nvim": {
+      "rev": "2d7c2db",
+      "src": "https://github.com/stevearc/dressing.nvim"
+    },
+    "gitsigns.nvim": {
+      "rev": "1ee5c1f",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "indent-blankline.nvim": {
+      "rev": "005b560",
+      "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
+    },
+    "lazygit.nvim": {
+      "rev": "2305dee",
+      "src": "https://github.com/kdheepak/lazygit.nvim"
+    },
+    "lspkind.nvim": {
+      "rev": "3ddd1b4",
+      "src": "https://github.com/onsails/lspkind.nvim"
+    },
+    "lualine.nvim": {
+      "rev": "b8c2315",
+      "src": "https://github.com/nvim-lualine/lualine.nvim"
+    },
+    "mason.nvim": {
+      "rev": "ad7146a",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "mini.pairs": {
+      "rev": "b9aada8",
+      "src": "https://github.com/nvim-mini/mini.pairs"
+    },
+    "nvim-cmp": {
+      "rev": "b5311ab",
+      "src": "https://github.com/hrsh7th/nvim-cmp"
+    },
+    "nvim-lspconfig": {
+      "rev": "ac98db2",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-surround": {
+      "rev": "75de178",
+      "src": "https://github.com/kylechui/nvim-surround"
+    },
+    "nvim-tree.lua": {
+      "rev": "e397756",
+      "src": "https://github.com/nvim-tree/nvim-tree.lua"
+    },
+    "nvim-treesitter": {
+      "rev": "42fc28ba",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'master'"
+    },
+    "nvim-ts-autotag": {
+      "rev": "c4ca798",
+      "src": "https://github.com/windwp/nvim-ts-autotag"
+    },
+    "nvim-ufo": {
+      "rev": "72d54c3",
+      "src": "https://github.com/kevinhwang91/nvim-ufo"
+    },
+    "nvim-web-devicons": {
+      "rev": "b8221e4",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
+    "oil.nvim": {
+      "rev": "919e155",
+      "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd522",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "promise-async": {
+      "rev": "119e896",
+      "src": "https://github.com/kevinhwang91/promise-async"
+    },
+    "tailwind-tools.nvim": {
+      "rev": "fbe9829",
+      "src": "https://github.com/luckasRanarison/tailwind-tools.nvim"
+    },
+    "telescope.nvim": {
+      "rev": "b4da76b",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "tokyonight.nvim": {
+      "rev": "d14614c",
+      "src": "https://github.com/folke/tokyonight.nvim"
+    },
+    "vim-dadbod": {
+      "rev": "e95afed",
+      "src": "https://github.com/tpope/vim-dadbod"
+    },
+    "vim-dadbod-completion": {
+      "rev": "a8dac0b",
+      "src": "https://github.com/kristijanhusak/vim-dadbod-completion"
+    },
+    "vim-dadbod-ui": {
+      "rev": "e8b53c0",
+      "src": "https://github.com/kristijanhusak/vim-dadbod-ui"
+    },
+    "vim-maximizer": {
+      "rev": "2e54952",
+      "src": "https://github.com/szw/vim-maximizer"
+    },
+    "vim-tmux-navigator": {
+      "rev": "c45243d",
+      "src": "https://github.com/christoomey/vim-tmux-navigator"
+    },
+    "vim-visual-multi": {
+      "rev": "a6975e7",
+      "src": "https://github.com/mg979/vim-visual-multi"
+    },
+    "which-key.nvim": {
+      "rev": "b4177e3",
+      "src": "https://github.com/folke/which-key.nvim"
+    }
+  }
+}
