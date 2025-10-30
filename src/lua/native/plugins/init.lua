@@ -46,3 +46,5 @@ require("native.plugins.vim-tmux-navigator")
 require("native.plugins.nvim-tree")
 
 require("native.plugins.dadbod")
+
+require("native.plugins.opencode")
