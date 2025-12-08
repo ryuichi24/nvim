@@ -28,9 +28,8 @@
   "Struct method": {
     "prefix": "strum",
     "body": [
-      "func (${2:this} *${1:StructName}) ${3:MethodName}() (${4}, error) {",
-      "\tfmt.Println(\"${3}\")",
-      "\treturn nil",
+      "func (${2:this} *${1:StructName}) ${3:MethodName}() {",
+      "\t//",
       "}"
     ],
     "description": "Define a method for a struct with customizable this and method name",
@@ -47,9 +46,8 @@
       "\treturn &${1:StructName}{}",
       "}",
       "",
-      "func (${2:this} *${1:StructName}) ${3:StructMethod}() (${4}, error) {",
-      "\tfmt.Println(\"${1:StructName}\")",
-      "\treturn nil",
+      "func (${2:this} *${1:StructName}) ${3:StructMethod}() {",
+      "\t//",
       "}"
     ],
     "description": "Create a new struct and constructor with a customizable name prefix",
