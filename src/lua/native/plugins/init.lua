@@ -48,3 +48,5 @@ require("native.plugins.nvim-tree")
 require("native.plugins.dadbod")
 
 require("native.plugins.opencode")
+
+require("native.plugins.markdown-preview")
