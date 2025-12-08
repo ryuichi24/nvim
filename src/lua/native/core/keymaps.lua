@@ -9,7 +9,7 @@ vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { desc = "Move up visually sele
 
 -- ESC hotkeys
 vim.keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jj" })
-vim.keymap.set("v", "q", "<ESC>", { desc = "Exit visual mode with q" })
+vim.keymap.set("v", "e", "<ESC>", { desc = "Exit visual mode with q" })
 
 -- Buffer control
 vim.keymap.set("n", "<leader>bu", ":update<CR> :source<CR>", { desc = "Update buffer." })
@@ -27,19 +27,25 @@ vim.keymap.set("n", "<leader>wc", ":vertical resize -5<CR>", { desc = "Reisze ve
 vim.keymap.set("n", "<leader>wj", ":horizontal resize +5<CR>", { desc = "Reisze horizontally by +5" })
 vim.keymap.set("n", "<leader>wg", ":horizontal resize -5<CR>", { desc = "Reisze horizontally by -5" })
 
+vim.keymap.set('n', '<leader>yc', function()
+    local cwd = vim.fn.getcwd()
+    vim.fn.setreg('+', cwd)
+    print("📋 Copied CWD: " .. cwd)
+end, { desc = 'Copy current working directory to clipboard' })
+
 -- Folding
 vim.keymap.set("n", "S", "za", { desc = "Fold lines on cursor." })
 
 -- Serach
 vim.keymap.set("n", "/", function()
-	local word = vim.fn.expand("<cword>")
-	vim.fn.feedkeys("/" .. word, "n")
+    local word = vim.fn.expand("<cword>")
+    vim.fn.feedkeys("/" .. word, "n")
 end, { noremap = true, silent = true, desc = "Search word under cursor" })
 
 vim.keymap.set("v", "/", function()
-	local text = get_visual_selection()
-	text = vim.fn.escape(text, [[/\]]) -- escape / and \
-	vim.fn.feedkeys("/" .. text, "n")
+    local text = get_visual_selection()
+    text = vim.fn.escape(text, [[/\]]) -- escape / and \
+    vim.fn.feedkeys("/" .. text, "n")
 end, { noremap = true, silent = true, desc = "Search visually selected text" })
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true, desc = "Clear search highlight" })
