@@ -2,9 +2,8 @@ vim.pack.add({
     { src = "https://github.com/kevinhwang91/nvim-ufo" }
 })
 
-
-vim.o.foldcolumn = '1'         -- '0' is not bad
-vim.o.foldlevel = 99           -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
@@ -39,13 +38,15 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
 end
 
 -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-vim.keymap.set('n', '<leader>uo', ufo.openAllFolds)
-vim.keymap.set('n', '<leader>uc', ufo.closeAllFolds)
+vim.keymap.set('n', 'FO', ufo.openAllFolds, { desc = "Unfold all folded lines" })
+vim.keymap.set('n', 'FF', ufo.closeAllFolds, { desc = "Fold all lines" })
+vim.keymap.set("n", "S", "za", { desc = "Toggle fold under cursor" })
+
 
 vim.opt.fillchars:append({
-    foldopen = 'v',          -- Opened fold
-    foldclose = '>',         -- Closed fold
-    foldsep = ' ',           -- Optional: clean separator
+    foldopen = 'v',  -- Opened fold
+    foldclose = '>', -- Closed fold
+    foldsep = ' ',   -- Optional: clean separator
 })
 
 require('ufo').setup({

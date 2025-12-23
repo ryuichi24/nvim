@@ -33,11 +33,6 @@ vim.keymap.set('n', '<leader>yc', function()
     print("📋 Copied CWD: " .. cwd)
 end, { desc = 'Copy current working directory to clipboard' })
 
--- Folding
-vim.keymap.set("n", "S",  "za", { desc = "Toggle fold under cursor" })
-vim.keymap.set("n", "SS", "zM", { desc = "Fold all lines" })
-vim.keymap.set("n", "SO", "zR", { desc = "Unfold all lines" })
-
 -- Serach
 vim.keymap.set("n", "/", function()
     local word = vim.fn.expand("<cword>")
