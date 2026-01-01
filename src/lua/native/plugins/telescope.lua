@@ -42,7 +42,6 @@ local function telescope_qf_replace(prompt_bufnr)
     actions.send_to_qflist(prompt_bufnr)
     actions.open_qflist(prompt_bufnr)
 
-    -- Hand off to your generic function
     vim.schedule(function()
         quickfix_replace({
             find = query,
