@@ -4,10 +4,7 @@ vim.pack.add({
 
 local function quickfix_replace(opts)
     opts = opts or {}
-    -- Priority for prefill:
-    -- 1. explicit value
-    -- 2. last search pattern
-    -- 3. word under cursor
+
     local prefill =
         opts.find
         or vim.fn.getreg("/")
@@ -21,12 +18,26 @@ local function quickfix_replace(opts)
 
     local flags = opts.flags or "g"
 
+    -- Run replace + write
     vim.cmd(string.format(
-        "cfdo %%s/\\V%s/%s/%s | update | bd | cclose",
+        "cfdo %%s/\\V%s/%s/%s | update",
         vim.fn.escape(find, "/"),
         vim.fn.escape(replace, "/"),
         flags
     ))
+
+    -- Close edited buffers safely
+    for _, bufnr in ipairs(vim.fn.getqflist({ items = 0 }).items) do
+        if vim.api.nvim_buf_is_loaded(bufnr.bufnr) then
+            pcall(vim.cmd, "bd " .. bufnr.bufnr)
+        end
+    end
+
+    -- Close quickfix window safely
+    local qf_win = vim.fn.getqflist({ winid = 0 }).winid
+    if qf_win ~= 0 and vim.api.nvim_list_wins()[1] ~= qf_win then
+        pcall(vim.api.nvim_win_close, qf_win, true)
+    end
 end
 
 local actions = require("telescope.actions")
