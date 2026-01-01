@@ -2,9 +2,70 @@ vim.pack.add({
     { src = "https://github.com/nvim-telescope/telescope.nvim" }
 })
 
+local function quickfix_replace(opts)
+    opts = opts or {}
+    -- Priority for prefill:
+    -- 1. explicit value
+    -- 2. last search pattern
+    -- 3. word under cursor
+    local prefill =
+        opts.find
+        or vim.fn.getreg("/")
+        or vim.fn.expand("<cword>")
+
+    local find = vim.fn.input("Find: ", prefill)
+    if find == "" then return end
+
+    local replace = vim.fn.input("Replace with: ")
+    if replace == "" then return end
+
+    local flags = opts.flags or "g"
+
+    vim.cmd(string.format(
+        "cfdo %%s/\\V%s/%s/%s | update | bd | cclose",
+        vim.fn.escape(find, "/"),
+        vim.fn.escape(replace, "/"),
+        flags
+    ))
+end
+
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+
+local function telescope_qf_replace(prompt_bufnr)
+    local picker = action_state.get_current_picker(prompt_bufnr)
+    if not picker then return end
+
+    local query = picker:_get_prompt()
+
+    -- Default <C-q> behavior
+    actions.send_to_qflist(prompt_bufnr)
+    actions.open_qflist(prompt_bufnr)
+
+    -- Hand off to your generic function
+    vim.schedule(function()
+        quickfix_replace({
+            find = query,
+        })
+    end)
+end
+
+vim.keymap.set("n", "<leader>qr", quickfix_replace, {
+    desc = "Replace everything in quickfix",
+})
+
+
 require("telescope").setup {
     defaults = {
-        path_display = { "smart" }
+        path_display = { "smart" },
+        mappings = {
+            i = {
+                ["<C-r>"] = telescope_qf_replace,
+            },
+            n = {
+                ["<C-r>"] = telescope_qf_replace,
+            },
+        },
     },
     pickers = {
         find_files = {
