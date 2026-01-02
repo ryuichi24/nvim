@@ -10,7 +10,7 @@ vim.pack.add({
     -- Tailwind CSS
     { src = "https://github.com/luckasRanarison/tailwind-tools.nvim" },
 })
-local lspconfig = require("lspconfig")
+
 local cmp = require("cmp")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -63,32 +63,38 @@ vim.diagnostic.config({
 -- LSP Configurations
 
 -- Lua
-lspconfig.lua_ls.setup({
+vim.lsp.config("lua_ls", {
     capabilities = capabilities,
     settings = {
         Lua = {
             diagnostics = {
                 -- Suppress warning of the "vim" global variable undefined
                 globals = { "vim" },
-            }
-        }
-    }
+            },
+        },
+    },
 })
 
 -- Go
-lspconfig.gopls.setup({
+vim.lsp.config("gopls", {
     capabilities = capabilities,
     settings = {}
 })
 
 -- Typscript : https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#vtsls
-lspconfig.vtsls.setup({
+vim.lsp.config("vtsls", {
+    capabilities = capabilities,
+    settings = {}
+})
+
+-- Tailwindcss
+vim.lsp.config("tailwindcss", {
     capabilities = capabilities,
     settings = {}
 })
 
 -- C/C++
-lspconfig.clangd.setup({
+vim.lsp.config("clangd", {
     capabilities = capabilities,
     settings = {}
 })
@@ -130,25 +136,11 @@ cmp.setup.filetype("sql", {
 local luasnip = require("luasnip.loaders.from_vscode")
 luasnip.lazy_load({ paths = { "~/.config/nvim/src/lua/native/lsp/snippets/" } })
 
--- Tailwind CSS
-local tailwind_tools = require("tailwind-tools")
--- https://github.com/luckasRanarison/tailwind-tools.nvim?tab=readme-ov-file#installation
-vim.api.nvim_create_autocmd('PackChanged', {
-    desc = 'Handle tailwind-tools.nvim updates',
-    group = vim.api.nvim_create_augroup('', { clear = true }),
-    callback = function(event)
-        if event.data.kind == 'update' and event.data.spec.name == 'tailwind-tools' then
-            vim.notify('tailwind-tools updated, running ... :UpdateRemotePlugins', vim.log.levels.INFO)
-            ---@diagnostic disable-next-line: param-type-mismatch
-            local ok = pcall(vim.cmd, 'UpdateRemotePlugins')
-            if ok then
-                vim.notify('UpdateRemotePlugins completed successfully!', vim.log.levels.INFO)
-            else
-                vim.notify('UpdateRemotePlugins command not available yet, skipping', vim.log.levels.WARN)
-            end
-        end
-    end,
-})
-
-tailwind_tools.setup({
+-- https://github.com/neovim/nvim-lspconfig?tab=readme-ov-file#important-%EF%B8%8F
+vim.lsp.enable({
+    "lua_ls",
+    "gopls",
+    "vtsls",
+    "tailwindcss",
+    "clangd",
 })
