@@ -9,6 +9,8 @@ vim.pack.add({
     { src = "https://github.com/onsails/lspkind.nvim" },
     -- Tailwind CSS
     { src = "https://github.com/luckasRanarison/tailwind-tools.nvim" },
+    -- JSON Schema
+    { src = "https://github.com/b0o/SchemaStore.nvim" }
 })
 
 local cmp = require("cmp")
@@ -99,6 +101,28 @@ vim.lsp.config("clangd", {
     settings = {}
 })
 
+vim.lsp.config("jsonls", {
+    capabilities = capabilities,
+    settings = {
+        json = {
+            schemas = require("schemastore").json.schemas(),
+            format = {
+                enable = true,
+            },
+            filetypes = { 'json', 'jsonc' },
+            validate = { enable = true },
+        },
+    }
+})
+
+vim.filetype.add({
+    filename = {
+        -- vscode config files
+        ["settings.json"] = "jsonc",
+        ["keybindings.json"] = "jsonc",
+    },
+})
+
 local lspkind = require("lspkind")
 
 -- cmp
@@ -143,4 +167,5 @@ vim.lsp.enable({
     "vtsls",
     "tailwindcss",
     "clangd",
+    "jsonls"
 })

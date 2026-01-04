@@ -12,6 +12,10 @@
       "rev": "7381330",
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
+    "SchemaStore.nvim": {
+      "rev": "fb5f164a28f8fd5a052da512436d4173e06cf71e",
+      "src": "https://github.com/b0o/SchemaStore.nvim"
+    },
     "auto-session": {
       "rev": "517a757",
       "src": "https://github.com/rmagatti/auto-session"
