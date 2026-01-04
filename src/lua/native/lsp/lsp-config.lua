@@ -4,6 +4,7 @@ vim.pack.add({
     { src = "https://github.com/hrsh7th/nvim-cmp" },
     -- Code Snippet
     { src = "https://github.com/saadparwaiz1/cmp_luasnip" },
+    -- snippet engine
     { src = "https://github.com/L3MON4D3/LuaSnip" },
     -- VSCode like
     { src = "https://github.com/onsails/lspkind.nvim" },
@@ -156,9 +157,6 @@ cmp.setup.filetype("sql", {
     },
 })
 
--- Setup Code Snippet
-local luasnip = require("luasnip.loaders.from_vscode")
-luasnip.lazy_load({ paths = { "~/.config/nvim/src/lua/native/lsp/snippets/" } })
 
 -- https://github.com/neovim/nvim-lspconfig?tab=readme-ov-file#important-%EF%B8%8F
 vim.lsp.enable({
