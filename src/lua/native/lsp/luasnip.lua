@@ -5,10 +5,6 @@ vim.pack.add({
     { src = "https://github.com/L3MON4D3/LuaSnip" },
 })
 
--- Setup Code Snippet
-local luasnip = require("luasnip.loaders.from_vscode")
-luasnip.lazy_load({ paths = { "~/.config/nvim/src/lua/native/lsp/snippets/" } })
-
 local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
@@ -25,6 +21,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 -- config --
 ls.config.set_config({
     history = true,
+    -- so you can see snippets as you type
     updateevents = "TextChanged,TextChangedI",
 })
 
@@ -235,3 +232,8 @@ ls.add_snippets("all", {
         t(os.date("%Y-%m-%d %H:%M:%S")),
     }),
 })
+
+-- Load VSCode-style snippets from a custom directory
+-- NOTE: Disabled for archive purposes, enable if needed
+-- local luasnipvscode = require("luasnip.loaders.from_vscode")
+-- luasnipvscode.lazy_load({ paths = { "~/.config/nvim/src/lua/native/lsp/snippets/" } })
