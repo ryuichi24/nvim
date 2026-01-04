@@ -13,8 +13,20 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
+local f = ls.function_node
 local extras = require("luasnip.extras")
 local rep = extras.rep
+-- {{  → literal {
+-- }}  → literal }
+-- {}  → placeholder
+local fmt = require("luasnip.extras.fmt").fmt
+
+
+-- config --
+ls.config.set_config({
+    history = true,
+    updateevents = "TextChanged,TextChangedI",
+})
 
 
 -- Keybindings --
@@ -38,39 +50,87 @@ end)
 
 -- Go Snippets --
 
+-- util functions --
+-- Returns the first character of the last PascalCase part of a string, lowercased
+local function receiver_from_struct(node_index)
+    return f(function(args)
+        local struct_name = args[1][1] or ""
+        local parts = {}
+        for part in struct_name:gmatch("[A-Z][a-z0-9]*") do
+            table.insert(parts, part)
+        end
+        local last = parts[#parts] or struct_name
+        return last:sub(1, 1):lower()
+    end, { node_index })
+end
+
 ls.add_snippets("go", {
 
-    s("main", {
-        t({
-            "package main",
-            "",
-            "import (",
-            "\t\"fmt\"",
-            ")",
-            "",
-            "func main() {",
-            "\t",
-        }),
-        i(1, 'fmt.Println("Hello, World!")'),
-        t({
-            "",
-            "}",
-        }),
-    }),
+    s("main", fmt(
+        [[
+        package main
 
-    s("struct", {
-        t("type "), i(1, "StructName"), t(" struct {"),
-        t({ "", "\t" }), i(0),
-        t({ "", "}" }),
-    }),
+        import (
+            "fmt"
+        )
 
-    s("method", {
-        t("func ("), i(1, "this"), t(" *"), i(2, "StructType"), t(") "), i(3, "MethodName"), t("() "), i(4, "ReturnType"), t(" {"),
-        t({ "", "\t" }), i(0),
-        t({ "", "}" }),
-    }),
+        func main() {{
+            {}
+        }}
+        ]],
+        {
+            i(1, 'fmt.Println("Hello, World!")'),
+        }
+    )),
 
+    s("struct", fmt(
+        [[
+        type {} struct {{
+            {}
+        }}
+        ]],
+        {
+            i(1, "Struct"),
+            i(0),
+        }
+    )),
 
+    s("method", fmt(
+        [[
+        func ({} *{}) {}() {} {{
+            {}
+        }}
+        ]],
+        {
+            receiver_from_struct(1),
+            i(1, "Struct"),
+            i(2, "Method"),
+            i(3, "error"),
+            i(0, "return nil"),
+        }
+    )),
+
+    -- create a struct and its method snippet
+    s("stm", fmt(
+        [[
+        type {} struct {{
+            {}
+        }}
+
+        func ({} *{}) {}() {} {{
+            {}
+        }}
+        ]],
+        {
+            i(1, "Struct"),
+            i(2, "Field"),
+            receiver_from_struct(1),
+            rep(1),
+            i(3, "Method"),
+            i(4, "error"),
+            i(0, "return nil"),
+        }
+    ))
 })
 
 -- TypeScript Snippets --
@@ -136,11 +196,11 @@ ls.add_snippets("markdown", {
     s("list", {
         t("- "), i(1, "List item"),
     }),
-    
+
     s("numlist", {
         t("1. "), i(1, "List item"),
     }),
-     
+
     s("todo", {
         t("- [ ] "), i(1, "Task item"),
     }),
