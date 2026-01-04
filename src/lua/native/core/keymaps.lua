@@ -45,16 +45,4 @@ vim.keymap.set('n', '<leader>yc', function()
     print("📋 Copied CWD: " .. cwd)
 end, { desc = 'Copy current working directory to clipboard' })
 
--- Serach
-vim.keymap.set("n", "/", function()
-    local word = vim.fn.expand("<cword>")
-    vim.fn.feedkeys("/" .. word, "n")
-end, { noremap = true, silent = true, desc = "Search word under cursor" })
-
-vim.keymap.set("v", "/", function()
-    local text = get_visual_selection()
-    text = vim.fn.escape(text, [[/\]]) -- escape / and \
-    vim.fn.feedkeys("/" .. text, "n")
-end, { noremap = true, silent = true, desc = "Search visually selected text" })
-
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true, desc = "Clear search highlight" })
