@@ -2,9 +2,10 @@
 vim.g.mapleader = " "
 
 vim.keymap.set("v", "p", '"_dP', { desc = "Paste over currently selected text without yanking it" })
+vim.keymap.set({ "n", "v" }, "$", 'g_', { desc = "Move to end of line, ignoring trailing whitespace" })
 
 -- Select all
-vim.keymap.set("n", "<leader>a", "ggVG", { desc = "Select all" })
+vim.keymap.set("n", "<leader>aa", "ggVG", { desc = "Select all" })
 
 -- Move lines up and down
 vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { desc = "Move down visually selected lines" })
