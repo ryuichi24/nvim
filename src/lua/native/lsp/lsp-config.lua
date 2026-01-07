@@ -102,6 +102,12 @@ vim.lsp.config("clangd", {
     settings = {}
 })
 
+-- Swift
+vim.lsp.config("sourcekit", {
+    capabilities = capabilities,
+    settings = {}
+})
+
 vim.lsp.config("jsonls", {
     capabilities = capabilities,
     settings = {
@@ -165,5 +171,6 @@ vim.lsp.enable({
     "vtsls",
     "tailwindcss",
     "clangd",
-    "jsonls"
+    "jsonls",
+    "sourcekit"
 })
