@@ -10,6 +10,7 @@ local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
+local c = ls.choice_node
 local extras = require("luasnip.extras")
 local rep = extras.rep
 -- {{  → literal {
@@ -27,26 +28,23 @@ ls.config.set_config({
 
 
 -- Keybindings --
-vim.keymap.set({ "i", "s" }, "<A-j>", function()
-    if ls.expand_or_jumpable() then
-        ls.expand_or_jump()
-    end
-end, { silent = true })
+-- vim.keymap.set({ "i", "s" }, "<C-j>", function()
+--     if ls.expand_or_jumpable() then
+--         ls.expand_or_jump()
+--     end
+-- end, { silent = true })
 
-vim.keymap.set({ "i", "s" }, "<A-k>", function()
+vim.keymap.set({ "i", "s" }, "<C-k>", function()
     if ls.jumpable(-1) then
         ls.jump(-1)
     end
 end, { silent = true })
 
-vim.keymap.set("i", "<A-l>", function()
+vim.keymap.set({ "i", "s" }, "<C-j>", function()
     if ls.choice_active() then
         ls.change_choice(1)
     end
 end)
-
--- Go Snippets --
-
 -- util functions --
 -- Returns the first character of the last PascalCase part of a string, lowercased
 local function receiver_from_struct(node_index)
@@ -61,6 +59,73 @@ local function receiver_from_struct(node_index)
     end, { node_index })
 end
 
+-- Returns the current date and time in ISO 8601 format
+-- Date only (local)
+local function today()
+    return os.date("%Y-%m-%d")
+end
+
+-- Time only (local)
+local function now_time()
+    return os.date("%H:%M:%S")
+end
+
+-- Human-readable local datetime
+local function now_local()
+    return os.date("%Y-%m-%d %H:%M:%S")
+end
+
+-- ISO-8601–like local datetime (no timezone)
+-- Used by Obsidian frontmatter (de facto convention)
+local function now_obsidian()
+    return os.date("%Y-%m-%dT%H:%M:%S")
+end
+
+-- True ISO 8601 / RFC 3339 (UTC)
+local function now_iso_utc()
+    return os.date("!%Y-%m-%dT%H:%M:%SZ")
+end
+
+-- Unix timestamp (seconds since epoch)
+local function now_unix()
+    return tostring(os.time())
+end
+
+-- Filename-safe timestamp (sortable)
+local function now_filename()
+    return os.date("%Y%m%d-%H%M%S")
+end
+
+local function gen_code_block(lang)
+    return s({
+        trig = lang,
+        name = "Codeblock",
+        desc = lang .. " codeblock",
+    }, fmt(
+        [[
+```{}
+{}
+```
+]], { lang, i(0) }))
+end
+
+-- Get the system clipboard
+local function clipboard()
+    return vim.fn.getreg("+")
+end
+
+local function clipboard_choices(n)
+    local choices = {}
+    for i = 0, n - 1 do
+        local clip = vim.fn.getreg("+", i)
+        if clip ~= "" then
+            table.insert(choices, clip)
+        end
+    end
+    return choices
+end
+
+-- Go Snippets --
 ls.add_snippets("go", {
 
     s("main", fmt(
@@ -127,8 +192,41 @@ ls.add_snippets("go", {
             i(4, "error"),
             i(0, "return nil"),
         }
-    ))
-})
+    )),
+
+    s("iferr", fmt(
+        [[
+        if err := {}; err != nil {{
+            return err
+        }}
+        ]],
+        {
+            i(1, "<some operation>"),
+        }
+    )),
+
+    s(
+        "conso",
+        fmt(
+            [[
+        type {}Options struct {{
+            {}
+        }}
+
+        func New{}(options {}Options) (*{}, error) {{
+            return &{}{{}}, nil
+        }}
+        ]],
+            {
+                i(1, "Struct"),
+                i(2, "// options"),
+                rep(1),
+                rep(1),
+                rep(1),
+                rep(1),
+            }
+        )
+    ), })
 
 -- TypeScript Snippets --
 ls.add_snippets("typescript", {
@@ -166,43 +264,98 @@ ls.add_snippets("typescriptreact", {
 
 
 -- Markdown Snippets --
+local programmning_languages = {
+    "bash",
+    "go",
+    "lua",
+    "javascript",
+    "typescript",
+    "swift",
+    "c",
+    "cpp",
+    "json",
+    "dockerfile",
+    "html",
+    "css",
+    "markdown",
+    "sql",
+    "txt",
+    "regex",
+    "yaml",
+    "java",
+    "python",
+    "php",
+}
+
 ls.add_snippets("markdown", {
+    s("img", fmt("![{}]({})", { i(1, "alt text"), i(2, "image url") })),
 
-    s("link", {
-        t("["), i(1, "link text"), t("]("), i(2, "url"), t(")"),
-    }),
+    s("codeblock",
+        fmt([[
+        ```{}
+        {}
+        ```
+        ]],
+            { i(1, "language"), i(0) })),
 
-    s("img", {
-        t("!["), i(1, "alt text"), t("]("), i(2, "image url"), t(")"),
-    }),
+    s("table", fmt([[
+        | {} | {} |
+        |---|---|
+        | {} | {} |
+        | {} | {} |
+        ]],
+        { i(1, "Header1"), i(2, "Header2"), i(3, "Row1Col1"), i(4, "Row1Col2"), i(5, "Row2Col1"), i(6, "Row2Col2") })),
 
-    s("codeblock", {
-        t("```"), i(1, "language"),
-        t({ "", "" }),
-        i(0),
-        t({ "", "```" }),
-    }),
+    s("list", fmt("- {}", { i(1, "List item") })),
 
-    s("table", {
-        t("| "), i(1, "Header1"), t(" | "), i(2, "Header2"), t(" |"),
-        t({ "", "|---|---|" }),
-        t({ "", "| " }), i(3, "Row1Col1"), t(" | "), i(4, "Row1Col2"), t(" |"),
-        t({ "", "| " }), i(5, "Row2Col1"), t(" | "), i(6, "Row2Col2"), t(" |"),
-    }),
+    s("numlist", fmt("1. {}", { i(1, "List item") })),
 
-    s("list", {
-        t("- "), i(1, "List item"),
-    }),
+    s("todo", fmt("- [ ] {}", { i(1, "Task item") })),
 
-    s("numlist", {
-        t("1. "), i(1, "List item"),
-    }),
+    s("hone", fmt("# {}", { i(1, "Heading 1") })),
+    s("htwo", fmt("## {}", { i(1, "Heading 2") })),
+    s("hthree", fmt("### {}", { i(1, "Heading 3") })),
+    s("hfour", fmt("#### {}", { i(1, "Heading 4") })),
+    s("hfive", fmt("##### {}", { i(1, "Heading 5") })),
+    s("hsix", fmt("###### {}", { i(1, "Heading 6") })),
 
-    s("todo", {
-        t("- [ ] "), i(1, "Task item"),
-    }),
+    s("note", fmt([[
+        ---
+        id:
+          "{}":
+        aliases:
+        tags:
+          - daily
+        created:
+          "{}":
+        updated:
+          "{}":
+        ---
 
+        # Note
+
+        - {}
+
+        # Todos
+
+        - [ ] todo1
+]], {
+        f(now_obsidian),
+        f(now_obsidian),
+        f(now_obsidian),
+        i(1, "note 1"),
+    })),
+
+    -- Markdown link snippet from clipboard
+    s("link", fmt(
+        [[
+        [{}]({})
+    ]], {
+            i(1, "text"),     -- Placeholder for link text
+            f(clipboard, {}), -- Insert clipboard contents as URL
+        }))
 })
+ls.add_snippets("markdown", vim.tbl_map(gen_code_block, programmning_languages))
 
 -- Json Snippets --
 ls.add_snippets("json", {
@@ -220,17 +373,33 @@ ls.add_snippets("json", {
 
 -- All Snippets --
 ls.add_snippets("all", {
-    s("date", {
-        t(os.date("%Y-%m-%d")),
+    s("now_date", {
+        f(today),
     }),
 
-    s("time", {
-        t(os.date("%H:%M:%S")),
+    s("now_time", {
+        f(now_time),
     }),
 
-    s("datetime", {
-        t(os.date("%Y-%m-%d %H:%M:%S")),
+    s("now_datetime", {
+        f(now_local),
     }),
+
+    s("now_obsidian", {
+        f(now_obsidian),
+    }),
+
+    s("now_utc", {
+        f(now_iso_utc),
+    }),
+
+    s("now_unix", {
+        f(now_unix),
+    }),
+
+    s("now_filename", {
+        f(now_filename),
+    })
 })
 
 -- Load VSCode-style snippets from a custom directory
