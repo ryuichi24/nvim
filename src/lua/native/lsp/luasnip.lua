@@ -18,7 +18,6 @@ local rep = extras.rep
 -- {}  → placeholder
 local fmt = require("luasnip.extras.fmt").fmt
 
-
 -- config --
 ls.config.set_config({
     history = true,
@@ -26,13 +25,12 @@ ls.config.set_config({
     updateevents = "TextChanged,TextChangedI",
 })
 
-
 -- Keybindings --
--- vim.keymap.set({ "i", "s" }, "<C-j>", function()
---     if ls.expand_or_jumpable() then
---         ls.expand_or_jump()
---     end
--- end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-j>", function()
+    if ls.expand_or_jumpable() then
+        ls.expand_or_jump()
+    end
+end, { silent = true })
 
 vim.keymap.set({ "i", "s" }, "<C-k>", function()
     if ls.jumpable(-1) then
@@ -40,11 +38,12 @@ vim.keymap.set({ "i", "s" }, "<C-k>", function()
     end
 end, { silent = true })
 
-vim.keymap.set({ "i", "s" }, "<C-j>", function()
-    if ls.choice_active() then
-        ls.change_choice(1)
-    end
-end)
+-- vim.keymap.set({ "i", "s" }, "<C-j>", function()
+--     if ls.choice_active() then
+--         ls.change_choice(1)
+--     end
+-- end)
+
 -- util functions --
 -- Returns the first character of the last PascalCase part of a string, lowercased
 local function receiver_from_struct(node_index)
