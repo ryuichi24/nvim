@@ -311,12 +311,18 @@ ls.add_snippets("markdown", {
 
     s("todo", fmt("- [ ] {}", { i(1, "Task item") })),
 
-    s("hone", fmt("# {}", { i(1, "Heading 1") })),
-    s("htwo", fmt("## {}", { i(1, "Heading 2") })),
-    s("hthree", fmt("### {}", { i(1, "Heading 3") })),
-    s("hfour", fmt("#### {}", { i(1, "Heading 4") })),
-    s("hfive", fmt("##### {}", { i(1, "Heading 5") })),
-    s("hsix", fmt("###### {}", { i(1, "Heading 6") })),
+    -- toggleable header
+    s("toggle", fmt([[
+        <details>
+        <summary>{}</summary>
+
+        {}
+
+        </details>
+    ]], {
+        i(1, "title"),
+        i(0, "content"),
+    })),
 
     s("note", fmt([[
         ---
@@ -352,7 +358,26 @@ ls.add_snippets("markdown", {
     ]], {
             i(1, "text"),     -- Placeholder for link text
             f(clipboard, {}), -- Insert clipboard contents as URL
-        }))
+        })),
+
+    -- README template snippet
+    s("readme", fmt([[
+        # {}
+
+        {}
+
+        ## Table of contents
+        - [Installation](#installation)
+
+        ## Installation
+
+        {}
+
+    ]], {
+        i(1, "Title"),
+        i(2, "Description"),
+        i(3, "Installation instructions"),
+    })),
 })
 ls.add_snippets("markdown", vim.tbl_map(gen_code_block, programmning_languages))
 
