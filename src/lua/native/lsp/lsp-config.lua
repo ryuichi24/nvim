@@ -108,11 +108,36 @@ vim.lsp.config("sourcekit", {
     settings = {}
 })
 
+-- JSON{
 vim.lsp.config("jsonls", {
     capabilities = capabilities,
     settings = {
         json = {
-            schemas = require("schemastore").json.schemas(),
+            schemas = require("schemastore").json.schemas({
+                -- replace = {
+                --     ["example.json"] = {
+                --         description = "Example JSON schema",
+                --         fileMatch = { "example.json" },
+                --         name = 'example.json',
+                --         url = 'https://example.com/example.json',
+                --     }
+                -- },
+                extra = {
+                    {
+                        name = "vscode keybindings schema",
+                        description = "VSCode Keybindings Schema",
+                        fileMatch = { "keybindings.json" },
+                        url = vim.fn.expand(
+                            "~/.config/nvim/src/lua/native/lsp/jsonschema/vscode/keybindings.schema.json"),
+                    },
+                    {
+                        name = "Example",
+                        description = "Example JSON schema",
+                        fileMatch = { "example.json" },
+                        url = vim.fn.expand("~/.config/nvim/src/lua/native/lsp/jsonschema/example/product.schema.json"),
+                    },
+                },
+            }),
             format = {
                 enable = true,
             },
