@@ -47,3 +47,11 @@ vim.keymap.set('n', '<leader>yc', function()
 end, { desc = 'Copy current working directory to clipboard' })
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true, desc = "Clear search highlight" })
+
+-- Wrap selected texts
+vim.keymap.set("v", "<leader>w(", 'c(<C-r>")<ESC>', { silent = true })
+vim.keymap.set("v", "<leader>w[", 'c[<C-r>"]<ESC>', { silent = true, })
+vim.keymap.set("v", "<leader>w{", 'c{<C-r>"}<ESC>', { silent = true, })
+vim.keymap.set("v", "<leader>w\"", 'c\"<C-r>"\"<ESC>', { silent = true, })
+vim.keymap.set("v", "<leader>w'", 'c\'<C-r>"\'<ESC>', { silent = true, })
+vim.keymap.set("v", "<leader>w`", 'c`<C-r>"`<ESC>', { silent = true, })
