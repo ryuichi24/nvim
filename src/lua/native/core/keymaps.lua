@@ -17,7 +17,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true })
 
 -- ESC hotkeys
 vim.keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jj" })
-vim.keymap.set("v", "e", "<ESC>", { desc = "Exit visual mode with q" })
 
 -- Buffer control
 vim.keymap.set("n", "<leader>bu", ":update<CR> :source<CR>", { desc = "Update buffer." })
