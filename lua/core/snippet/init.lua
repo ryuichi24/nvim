@@ -1,0 +1,1 @@
+require("core.snippet.config")

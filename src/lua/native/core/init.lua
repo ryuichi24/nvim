@@ -1,4 +1,0 @@
-require("native.core.keymaps")
-require("native.core.options")
-require("native.core.commands")
-require("native.core.colorscheme")

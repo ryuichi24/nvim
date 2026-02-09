@@ -1,0 +1,7 @@
+require("core.keymap")
+require("core.option")
+require("core.autocommand")
+require("core.lspconfig")
+require("core.snippet")
+require("core.colorscheme")
+require("core.plugin")
