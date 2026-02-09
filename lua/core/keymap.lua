@@ -146,3 +146,59 @@ local function open_disposable_buffer()
 end
 
 vim.keymap.set("n", "<leader>mm", open_disposable_buffer, { noremap = true, silent = true })
+
+-- terminal
+local Terminal = {}
+Terminal.__index = Terminal
+
+Terminal.win = nil
+Terminal.buf = nil
+
+function Terminal:toggle()
+	if self.win and vim.api.nvim_win_is_valid(self.win) then
+		vim.api.nvim_win_close(self.win, true)
+		self.win = nil
+		self.buf = nil
+		return
+	end
+
+	local buf = vim.api.nvim_create_buf(false, true)
+	local width = math.floor(vim.o.columns * 0.6)
+	local height = math.floor(vim.o.lines * 0.4)
+	local row = math.floor((vim.o.lines - height) / 2 - 1)
+	local col = math.floor((vim.o.columns - width) / 2)
+
+	local opts = {
+		relative = "editor",
+		width = width,
+		height = height,
+		row = row,
+		col = col,
+		style = "minimal",
+		border = "rounded",
+	}
+
+	local win = vim.api.nvim_open_win(buf, true, opts)
+
+	vim.fn.termopen(vim.o.shell)
+	vim.api.nvim_buf_set_option(buf, "buflisted", false)
+	vim.api.nvim_buf_set_option(buf, "buftype", "terminal")
+	vim.api.nvim_buf_set_option(buf, "bufhidden", "hide")
+
+	vim.api.nvim_buf_set_keymap(
+		buf,
+		"t",
+		"<Esc>",
+		[[<C-\><C-n>:lua _G.terminal:toggle()<CR>]],
+		{ noremap = true, silent = true }
+	)
+
+	vim.cmd("startinsert")
+
+	self.win = win
+	self.buf = buf
+end
+
+_G.terminal = Terminal
+
+vim.api.nvim_set_keymap("n", "<leader>tt", [[<cmd>lua _G.terminal:toggle()<CR>]], { noremap = true, silent = true })
