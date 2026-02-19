@@ -99,6 +99,7 @@ vim.lsp.enable({
 	"jsonls",
 	"sourcekit",
 	"sqlls",
+	"typos_lsp",
 })
 
 -- mason
