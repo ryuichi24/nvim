@@ -5,7 +5,7 @@ vim.opt.clipboard:append("unnamedplus")
 vim.opt.number = true -- line number
 vim.opt.relativenumber = true -- relative line number
 vim.opt.cursorline = true -- highlight current line
-vim.opt.wrap = false -- no wrapping lines
+vim.opt.wrap = true -- no wrapping lines
 vim.opt.list = true -- show whitespace
 vim.opt.listchars = {
 	-- {tab_char}{fill_char}
@@ -19,7 +19,7 @@ vim.opt.listchars = {
 -- Editor Behavior
 vim.opt.autowrite = false -- auto save
 -- vim.opt.iskeyword:append("_")
--- vim.opt.iskeyword:remove("_")
+vim.opt.iskeyword:remove("_")
 -- vim.opt.iskeyword:append("-")
 -- vim.opt.iskeyword:remove("-")
 
@@ -52,9 +52,3 @@ vim.opt.mouse = "a" -- Enable mouse support
 -- Undo
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.expand("~/.nvim/undodir")
-
--- folding
-vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.o.foldlevel = 99
-vim.o.foldmethod = "expr"
-vim.o.foldtext = ">"
