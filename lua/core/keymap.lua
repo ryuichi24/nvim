@@ -19,6 +19,9 @@ vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { desc = "Move up visually sele
 vim.keymap.set("v", "p", '"_dP', { desc = "Paste over currently selected text without yanking it" })
 vim.keymap.set({ "n", "v" }, "$", "g_", { desc = "Move to end of line, ignoring trailing whitespace" })
 
+-- Search
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true, desc = "Clear search highlight" })
+
 -- vim.notify()
 -- vim.inspect()
 -- vim.notify(vim.inspect(package.loaded["user.keymap"]))
@@ -146,6 +149,33 @@ local function open_disposable_buffer()
 end
 
 vim.keymap.set("n", "<leader>mm", open_disposable_buffer, { noremap = true, silent = true })
+
+-- Open ChatGPT with clipboard content as prompt
+vim.keymap.set("n", "<leader>cc", function()
+	local text = vim.fn.getreg("+")
+	if text == "" then
+		vim.notify("Clipboard is empty", vim.log.levels.WARN)
+		return
+	end
+
+	local encoded = text:gsub(" ", "+")
+	local url = "https://chatgpt.com/?temporary-chat=true&prompt=" .. encoded
+
+	-- Open URL depending on OS
+	local cmd
+	if vim.fn.has("mac") == 1 then
+		cmd = { "open", url }
+	elseif vim.fn.has("unix") == 1 then
+		cmd = { "xdg-open", url }
+	elseif vim.fn.has("win32") == 1 then
+		cmd = { "cmd.exe", "/c", "start", url }
+	else
+		vim.notify("Unsupported OS", vim.log.levels.ERROR)
+		return
+	end
+
+	vim.fn.jobstart(cmd, { detach = true })
+end, { desc = "Ask ChatGPT with a prompt" })
 
 -- terminal
 local Terminal = {}
