@@ -232,3 +232,27 @@ end
 _G.terminal = Terminal
 
 vim.api.nvim_set_keymap("n", "<leader>tt", [[<cmd>lua _G.terminal:toggle()<CR>]], { noremap = true, silent = true })
+
+--
+vim.keymap.set("v", "<leader>r-", function()
+	vim.cmd("'<,'>s/ /-/g")
+	vim.cmd("nohlsearch")
+end, { desc = "Replace spaces with hyphens in selection" })
+
+-- quick fix
+vim.keymap.set("n", "<leader>qo", "<cmd>copen<CR>", { desc = "Open quickfix window" })
+vim.keymap.set("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix window" })
+vim.keymap.set("n", "<leader>qd", function()
+	vim.cmd("cfdo bdelete!")
+	vim.cmd("cexpr []")
+end, {
+	desc = "Force close all quickfix buffers and clear list",
+})
+
+vim.keymap.set("n", "<C-A-n>", "<cmd>cnext<CR>", { desc = "Next quickfix item" })
+vim.keymap.set("n", "<C-A-p>", "<cmd>cprev<CR>", { desc = "Previous quickfix item" })
+-- to replace across all quickfix items
+-- :cfdo s/<pattern>/<replacement>/g | update
+
+-- to replace across all quickfix items with confirmation
+-- :cfdo s/<pattern>/<replacement>/gc | update
