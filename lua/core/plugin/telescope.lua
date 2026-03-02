@@ -125,6 +125,7 @@ vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", { desc = "Find fi
 vim.keymap.set("n", "<leader>fr", ":Telescope oldfiles<CR>", { desc = "Find recent files" })
 vim.keymap.set("n", "<leader>fs", ":Telescope live_grep<CR>", { desc = "Find string in cwd" })
 vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", { desc = "Find buffers" })
+vim.keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>", { desc = "Find helps" })
 vim.keymap.set("n", "<leader>fm", function()
 	require("telescope.builtin").marks()
 end, { desc = "Find marks (Telescope)" })
