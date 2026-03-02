@@ -15,3 +15,15 @@ vim.opt.autoread = true
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
 	command = "checktime",
 })
+
+-- Create an augroup for help buffers
+local help_group = vim.api.nvim_create_augroup("custom-help-buffer", { clear = true })
+
+-- Create autocmd for help filetype
+vim.api.nvim_create_autocmd("FileType", {
+	group = help_group,
+	pattern = "help",
+	callback = function()
+		vim.cmd("only") -- close all other windows
+	end,
+})
