@@ -1,5 +1,6 @@
 require("core.keymap")
 require("core.option")
+require("core.terminal")
 require("core.autocommand")
 require("core.lspconfig")
 require("core.snippet")

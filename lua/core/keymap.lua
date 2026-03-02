@@ -79,6 +79,20 @@ vim.keymap.set("n", "<C-A-h>", "<C-w><", { desc = "Shrink width" })
 vim.keymap.set("n", "<C-A-l>", "<C-w>>", { desc = "Grow width" })
 vim.keymap.set("n", "<C-A-k>", "<C-w>+", { desc = "Grow height" })
 vim.keymap.set("n", "<C-A-j>", "<C-w>-", { desc = "Shrink height" })
+local layout = nil
+
+local function toggle_zoom()
+	if layout then
+		vim.cmd(layout)
+		layout = nil
+	else
+		layout = vim.fn.winrestcmd()
+		vim.cmd("wincmd |")
+		vim.cmd("wincmd _")
+	end
+end
+
+vim.keymap.set("n", "<C-A-m>", toggle_zoom, { desc = "Toggle zoom window" })
 --
 vim.keymap.set("n", "<leader>we", "<C-w>=", { desc = "Make splits equal size" })
 vim.keymap.set("n", "<leader>wx", "<cmd>close<CR>", { desc = "Close current split" })
@@ -177,62 +191,6 @@ vim.keymap.set("n", "<leader>cc", function()
 	vim.fn.jobstart(cmd, { detach = true })
 end, { desc = "Ask ChatGPT with a prompt" })
 
--- terminal
-local Terminal = {}
-Terminal.__index = Terminal
-
-Terminal.win = nil
-Terminal.buf = nil
-
-function Terminal:toggle()
-	if self.win and vim.api.nvim_win_is_valid(self.win) then
-		vim.api.nvim_win_close(self.win, true)
-		self.win = nil
-		self.buf = nil
-		return
-	end
-
-	local buf = vim.api.nvim_create_buf(false, true)
-	local width = math.floor(vim.o.columns * 0.6)
-	local height = math.floor(vim.o.lines * 0.4)
-	local row = math.floor((vim.o.lines - height) / 2 - 1)
-	local col = math.floor((vim.o.columns - width) / 2)
-
-	local opts = {
-		relative = "editor",
-		width = width,
-		height = height,
-		row = row,
-		col = col,
-		style = "minimal",
-		border = "rounded",
-	}
-
-	local win = vim.api.nvim_open_win(buf, true, opts)
-
-	vim.fn.termopen(vim.o.shell)
-	vim.api.nvim_buf_set_option(buf, "buflisted", false)
-	vim.api.nvim_buf_set_option(buf, "buftype", "terminal")
-	vim.api.nvim_buf_set_option(buf, "bufhidden", "hide")
-
-	vim.api.nvim_buf_set_keymap(
-		buf,
-		"t",
-		"<Esc>",
-		[[<C-\><C-n>:lua _G.terminal:toggle()<CR>]],
-		{ noremap = true, silent = true }
-	)
-
-	vim.cmd("startinsert")
-
-	self.win = win
-	self.buf = buf
-end
-
-_G.terminal = Terminal
-
-vim.api.nvim_set_keymap("n", "<leader>tt", [[<cmd>lua _G.terminal:toggle()<CR>]], { noremap = true, silent = true })
-
 --
 vim.keymap.set("v", "<leader>r-", function()
 	vim.cmd("'<,'>s/ /-/g")
@@ -242,7 +200,7 @@ end, { desc = "Replace spaces with hyphens in selection" })
 -- quick fix
 vim.keymap.set("n", "<leader>qo", "<cmd>copen<CR>", { desc = "Open quickfix window" })
 vim.keymap.set("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix window" })
-vim.keymap.set("n", "<leader>qd", function()
+vim.keymap.set("n", "<leader>", function()
 	vim.cmd("cfdo bdelete!")
 	vim.cmd("cexpr []")
 end, {
