@@ -34,8 +34,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
 
 		vim.keymap.set("n", "<leader>ef", vim.diagnostic.open_float, { desc = "[E]xpand diagnostic message" })
-		vim.keymap.set("n", "<leader>en", vim.diagnostic.goto_next, { desc = "Next error" })
-		vim.keymap.set("n", "<leader>ep", vim.diagnostic.goto_prev, { desc = "Previous error" })
+		vim.keymap.set("n", "<leader>en", function()
+			vim.diagnostic.jump({ diagnostic = vim.diagnostic.get_next() })
+		end, { desc = "Next error" })
+
+		vim.keymap.set("n", "<leader>ep", function()
+			vim.diagnostic.jump({ diagnostic = vim.diagnostic.get_prev() })
+		end, { desc = "Previous error" })
 	end,
 })
 
