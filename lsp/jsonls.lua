@@ -64,6 +64,12 @@ return {
 						fileMatch = { "example.json" },
 						url = vim.fn.expand("~/.config/nvim/lua/core/lspconfig/jsonschema/example/product.schema.json"),
 					},
+					{
+						name = "Turborepo",
+						description = "Turborepo JSON schema",
+						fileMatch = { "turbo.json" },
+						url = vim.fn.expand("https://turborepo.dev/schema.json"),
+					},
 				},
 			}),
 			format = {
