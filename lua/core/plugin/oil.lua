@@ -14,6 +14,9 @@ oil.setup({
 		["<C-n>"] = "actions.preview_scroll_down",
 		["<C-p>"] = "actions.preview_scroll_up",
 	},
+	view_options = {
+		show_hidden = true,
+	},
 })
 
 -- keymap
