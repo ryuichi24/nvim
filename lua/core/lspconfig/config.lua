@@ -14,42 +14,12 @@ vim.pack.add({
 	{ src = "https://github.com/mason-org/mason.nvim" },
 })
 
-local cmp = require("cmp")
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
-local capabilities = cmp_nvim_lsp.default_capabilities()
-
---
-vim.api.nvim_create_autocmd("LspAttach", {
-	callback = function(ev)
-		local opts = { buffer = ev.buf, silent = true }
-
-		-- set keybinds
-		opts.desc = "Show LSP references"
-		vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
-
-		opts.desc = "Go to declaration"
-		vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- go to declaration
-
-		opts.desc = "See available code actions"
-		vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
-
-		vim.keymap.set("n", "<leader>ef", vim.diagnostic.open_float, { desc = "[E]xpand diagnostic message" })
-		vim.keymap.set("n", "<leader>en", function()
-			vim.diagnostic.jump({ diagnostic = vim.diagnostic.get_next() })
-		end, { desc = "Next error" })
-
-		vim.keymap.set("n", "<leader>ep", function()
-			vim.diagnostic.jump({ diagnostic = vim.diagnostic.get_prev() })
-		end, { desc = "Previous error" })
-	end,
-})
-
 --
 vim.diagnostic.config({
-	-- virtual_lines = true,
+	virtual_lines = false,
 	virtual_text = true,
 	underline = true,
-	update_in_insert = false,
+	update_in_insert = true,
 	severity_sort = true,
 	float = {
 		border = "rounded",
@@ -65,32 +35,9 @@ vim.diagnostic.config({
 		numhl = {
 			[vim.diagnostic.severity.ERROR] = "ErrorMsg",
 			[vim.diagnostic.severity.WARN] = "WarningMsg",
+			[vim.diagnostic.severity.INFO] = "InfoMsg",
+			[vim.diagnostic.severity.HINT] = "HintMsg",
 		},
-	},
-})
-
-local lspkind = require("lspkind")
-
--- cmp
-cmp.setup({
-	completeopt = "menu,menuone,preview,noinsert",
-	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-		{ name = "buffer" },
-		{ name = "path" },
-	}),
-	mapping = cmp.mapping.preset.insert({
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions,
-		["<C-d>"] = cmp.mapping.scroll_docs(4),
-		["<C-u>"] = cmp.mapping.scroll_docs(-4),
-	}),
-	formatting = {
-		format = lspkind.cmp_format({
-			maxwidth = 50,
-			ellipsis_char = "...",
-		}),
 	},
 })
 
@@ -107,7 +54,116 @@ vim.lsp.enable({
 	"typos_lsp",
 })
 
+-- cmp
+local cmp = require("cmp")
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local capabilities = cmp_nvim_lsp.default_capabilities()
+local lspkind = require("lspkind")
+
+---@diagnostic disable-next-line: redundant-parameter
+cmp.setup({
+	completeopt = "menu,menuone,preview,noinsert",
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "path" },
+		{ name = "buffer" },
+	}),
+	mapping = cmp.mapping.preset.insert({
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-d>"] = cmp.mapping.scroll_docs(4),
+		["<C-u>"] = cmp.mapping.scroll_docs(-4),
+	}),
+	formatting = {
+		format = lspkind.cmp_format({
+			maxwidth = 100,
+			ellipsis_char = "...",
+		}),
+	},
+	capabilities = capabilities,
+})
+
 -- mason
 require("mason").setup()
-
 vim.keymap.set("n", "<leader>lm", "<cmd>Mason<CR>", { desc = "Open Mason GUI" })
+
+-- keymaps
+vim.keymap.set("n", "<leader>li", ":lua print(vim.inspect(vim.lsp.get_active_clients()))<CR>", { desc = "LSP Info" })
+vim.keymap.set("n", "<leader>lc", function()
+	local clients = vim.lsp.get_clients()
+	if vim.tbl_isempty(clients) then
+		print("No LSP clients attached")
+		return
+	end
+
+	for _, client in ipairs(clients) do
+		local bufs = {}
+		for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+			if vim.lsp.buf_is_attached(buf, client.id) then
+				table.insert(bufs, vim.api.nvim_buf_get_name(buf))
+			end
+		end
+
+		print(
+			string.format(
+				"Name: %s | Root: %s | Filetypes: %s | Buffers: %d",
+				client.name,
+				client.config.root_dir or "nil",
+				table.concat(client.config.filetypes or {}, ","),
+				#bufs
+			)
+		)
+	end
+end, { desc = "Compact LSP Info" })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local opts = { buffer = args.buf, silent = true }
+
+		-- set keybinds
+		opts.desc = "Show LSP references"
+		vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+
+		opts.desc = "Go to declaration"
+		vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+
+		opts.desc = "See available code actions"
+		vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+
+		opts.desc = "Expand diagnostic message"
+		vim.keymap.set("n", "<leader>ef", vim.diagnostic.open_float, opts)
+
+		-- rename symbol
+		opts.desc = "Rename symbol"
+		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+
+		-- focus on floating diagnostic message
+		opts.desc = "Focus on popup"
+		vim.keymap.set("n", "<C-f>", function()
+			vim.lsp.buf.hover()
+		end, opts)
+
+		local ERROR_DIAGNOSTIC = 1
+		opts.desc = "Go to next error"
+		vim.keymap.set("n", "<leader>en", function()
+			vim.diagnostic.jump({ diagnostic = vim.diagnostic.get_next({ severity = ERROR_DIAGNOSTIC }), count = 1 })
+		end, opts)
+
+		opts.desc = "Go to prev error"
+		vim.keymap.set("n", "<leader>ep", function()
+			vim.diagnostic.jump({ diagnostic = vim.diagnostic.get_prev({ severity = ERROR_DIAGNOSTIC }), count = 1 })
+		end, opts)
+
+		local WARN_DIAGNOSTIC = 2
+		opts.desc = "Go to next warn"
+		vim.keymap.set("n", "<leader>wn", function()
+			vim.diagnostic.jump({ diagnostic = vim.diagnostic.get_next({ severity = WARN_DIAGNOSTIC }), count = 1 })
+		end, opts)
+
+		opts.desc = "Go to prev warn"
+		vim.keymap.set("n", "<leader>wp", function()
+			vim.diagnostic.jump({ dagnostic = vim.diagnostic.get_prev({ severity = WARN_DIAGNOSTIC }), count = 1 })
+		end, opts)
+	end,
+})
