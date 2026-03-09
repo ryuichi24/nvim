@@ -276,6 +276,18 @@ ls.add_snippets("go", {
 			}
 		)
 	),
+	-- comment
+	s(
+		"cstar",
+		fmt(
+			[[
+			/* {} */
+		]],
+			{
+				i(1, "Comment"),
+			}
+		)
+	),
 })
 
 -- TypeScript Snippets --
@@ -323,35 +335,77 @@ ls.add_snippets("typescript", {
 })
 
 -- Typescirpt React Snippets --
-ls.add_snippets("typescriptreact", {
+local tags = {
+	"div",
+	"span",
+	"p",
+	"button",
+	"section",
+	"header",
+	"footer",
+	"main",
+	"article",
+	"ul",
+	"li",
+	"h1",
+	"h2",
+	"h3",
+	"h4",
+}
+
+local snippets = {
+	-- console.log
 	s("clg", {
 		t("console.log("),
 		i(1, "message"),
 		t(");"),
 	}),
+
+	-- React function component
 	s(
 		"rf",
 		fmt(
 			[[
-        import React from "react";
+import React from "react";
 
-        interface Props {{}};
+interface Props {{}};
 
-        export const {}: React.FC<Props> = (props) => {{
-          const {{ {} }} = props;
-          return (<>{}</>);
-        }}
-        ]],
+export const {}: React.FC<Props> = (props) => {{
+  const {{ {} }} = props;
+  return (<>{}</>);
+}}
+      ]],
 			{
-				i(1, "ComponentName"), -- 1 export name
-				i(2), -- 2 destructured props
-				f(function(args) -- 3 repeat component name
+				i(1, "ComponentName"), -- export name
+				i(2), -- destructured props
+				f(function(args) -- repeat component name
 					return args[1][1]
 				end, { 1 }),
 			}
 		)
 	),
-})
+	s(
+		"cf",
+		fmt("const {} = {}();", {
+			c(2, {
+				fmt("{{ {} }}", { i(2, "data") }), -- object destructuring
+				fmt("[{}]", { i(2, "data") }), -- array destructuring
+				i(2, "result"), -- single variable
+			}),
+			i(1, "useHook"),
+		})
+	),
+}
+
+-- Dynamically generate JSX tag snippets
+for _, tag in ipairs(tags) do
+	table.insert(snippets, s(tag, fmt("<" .. tag .. ">{}</" .. tag .. ">", { i(1) })))
+end
+
+-- Optional fragment snippet
+table.insert(snippets, s("fragment", fmt("<>{}</>", { i(1) })))
+
+ls.add_snippets("typescriptreact", snippets)
 
 -- Markdown Snippets --
 local programmning_languages = {
@@ -434,25 +488,21 @@ ls.add_snippets("markdown", {
 		"note",
 		fmt(
 			[[
-        ---
-        id:
-          "{}":
-        aliases:
-        tags:
-          - daily
-        created:
-          "{}":
-        updated:
-          "{}":
-        ---
+---
+id: "{}"
+aliases: []
+tags: ["daily"]
+created: "{}"
+updated: "{}"
+---
 
-        # Note
+# Note
 
-        - {}
+- {}
 
-        # Todos
+# Todos
 
-        - [ ] todo1
+- [ ] todo1
 ]],
 			{
 				f(now_obsidian),
@@ -554,6 +604,17 @@ ls.add_snippets("all", {
 	s("now_filename", {
 		f(now_filename),
 	}),
+	-- uuid
+	s("uuid", {
+		f(function()
+			local random = math.random
+			local template = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+			return string.gsub(template, "[xy]", function(c)
+				local v = (c == "x") and random(0, 15) or random(8, 11)
+				return string.format("%x", v)
+			end)
+		end),
+	}),
 })
 
 -- lua
@@ -585,3 +646,9 @@ vim.pack.add({{
 -- NOTE: Disabled for archive purposes, enable if needed
 -- local luasnipvscode = require("luasnip.loaders.from_vscode")
 -- luasnipvscode.lazy_load({ paths = { "~/.config/nvim/src/lua/native/lsp/snippets/" } })
+--
+
+-- shell script
+ls.add_snippets("sh", {
+	s("shebang", fmt([[#!/bin/bash]], {})),
+})
