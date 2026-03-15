@@ -7,13 +7,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- Automatically reload files changed outside of Neovim.
--- Enables 'autoread' and runs :checktime on focus, buffer enter,
--- or when the cursor is idle, so external changes are detected
--- without manual intervention.
+-- Automatically reload files changed outside of Neovim
 vim.opt.autoread = true
+
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
-	command = "checktime",
+	callback = function()
+		local mode = vim.fn.mode()
+		if vim.bo.buftype == "" and mode ~= "c" and mode ~= "r" then
+			vim.cmd("checktime")
+		end
+	end,
 })
 
 -- Create an augroup for help buffers
