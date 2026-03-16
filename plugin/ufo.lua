@@ -2,12 +2,12 @@ vim.pack.add({
 	{ src = "https://github.com/kevinhwang91/nvim-ufo" },
 })
 
-vim.o.foldcolumn = "1" -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
+vim.opt.foldcolumn = "1" -- '0' is not bad
+vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
 
-ufo = require("ufo")
+local ufo = require("ufo")
 
 local handler = function(virtText, lnum, endLnum, width, truncate)
 	local newVirtText = {}

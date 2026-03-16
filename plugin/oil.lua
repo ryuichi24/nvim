@@ -11,11 +11,14 @@ oil.setup({
 		["<C-h>"] = false,
 		["<C-l>"] = false,
 		-- Custom oil keymaps
-		["<C-n>"] = "actions.preview_scroll_down",
-		["<C-p>"] = "actions.preview_scroll_up",
+		["<C-p>"] = { "actions.preview", opts = { split = "belowright" } },
 	},
 	view_options = {
 		show_hidden = true,
+	},
+	preview_win = {
+		update_on_cursor_moved = true,
+		win_options = {},
 	},
 })
 
@@ -28,11 +31,11 @@ end)
 vim.api.nvim_create_autocmd("User", {
 	pattern = "OilEnter",
 	callback = vim.schedule_wrap(function(args)
-		if vim.api.nvim_get_current_buf() == args.data.buf and oil.get_cursor_entry() then
-			oil.open_preview({
-				split = "belowright",
-			})
-		end
+		-- if vim.api.nvim_get_current_buf() == args.data.buf and oil.get_cursor_entry() then
+		-- 	oil.open_preview({
+		-- 		split = "belowright",
+		-- 	})
+		-- end
 	end),
 })
 
