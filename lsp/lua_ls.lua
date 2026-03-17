@@ -97,7 +97,9 @@ return {
 			-- https://github.com/neovim/neovim/issues/21686#issuecomment-1522446128
 			workspace = {
 				-- Make the server aware of Neovim runtime files
-				library = vim.api.nvim_get_runtime_file("", true),
+				library = vim.tbl_filter(function(path)
+					return path ~= vim.fn.stdpath("config") .. "/lua"
+				end, vim.api.nvim_get_runtime_file("lua", true)),
 			},
 			-- Do not send telemetry data containing a randomized but unique identifier
 			telemetry = {
