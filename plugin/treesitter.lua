@@ -1,5 +1,9 @@
 vim.pack.add({
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
+	{
+		name = "nvim-treesitter",
+		src = "https://github.com/nvim-treesitter/nvim-treesitter",
+		version = "master",
+	},
 })
 
 -- import nvim-treesitter plugin
