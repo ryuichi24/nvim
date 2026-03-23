@@ -18,22 +18,26 @@ vim.keymap.set("n", "<leader>qc", function()
 	vim.fn.setqflist({})
 end, opts)
 
-opts.desc = "Add current line to quickfix list"
-vim.keymap.set("n", "<leader>qa", function()
-	local line = vim.fn.line(".")
-	local col = vim.fn.col(".")
-	local bufnr = vim.fn.bufnr()
-	local filename = vim.fn.expand("%:p")
-	local text = vim.fn.getline(".")
-
-	local qflist = vim.fn.getqflist()
-	table.insert(qflist, {
-		bufnr = bufnr,
-		filename = filename,
-		lnum = line,
-		col = col,
-		text = text,
-	})
-	vim.fn.setqflist(qflist)
-	print("Added to quickfix: " .. text)
+opts.desc = "Delete current item from quickfix list"
+vim.keymap.set("n", "<leader>qd", function()
+	local info = vim.fn.getqflist({ idx = 0 })
+	local curqfidx = info.idx
+	local qfall = vim.fn.getqflist()
+	table.remove(qfall, curqfidx)
+	vim.fn.setqflist(qfall, "r")
 end, opts)
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "qf",
+	callback = function()
+		local buf_opts = { noremap = true, silent = true, buffer = true }
+		buf_opts.desc = "Delete item under cursor from quickfix list"
+		vim.keymap.set("n", "dd", function()
+			local curqfidx = vim.fn.line(".")
+			local qfall = vim.fn.getqflist()
+			table.remove(qfall, curqfidx)
+			vim.fn.setqflist(qfall, "r")
+			vim.cmd("copen")
+		end, buf_opts)
+	end,
+})
