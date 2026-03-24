@@ -16,6 +16,7 @@ vim.keymap.set("n", "<leader>QQ", ":cclose<CR>", opts)
 opts.desc = "Clear quickfix list"
 vim.keymap.set("n", "<leader>qc", function()
 	vim.fn.setqflist({})
+	vim.cmd("cclose")
 end, opts)
 
 opts.desc = "Add current line to quickfix list"
