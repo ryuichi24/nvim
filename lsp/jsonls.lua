@@ -70,6 +70,12 @@ return {
 						fileMatch = { "turbo.json" },
 						url = vim.fn.expand("https://turborepo.dev/schema.json"),
 					},
+					{
+						name = "Tsconfig",
+						description = "Custom Tsconfig json",
+						fileMatch = { "tsconfig.app.json" },
+						url = vim.fn.expand("~/.config/nvim/lua/core/lspconfig/jsonschema/ts/tsconfig.schema.json"),
+					},
 				},
 			}),
 			format = {
