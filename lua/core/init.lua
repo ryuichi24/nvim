@@ -1,6 +1,7 @@
 require("core.global")
 require("core.keymap")
 require("core.tab")
+require("core.quickfix")
 require("core.option")
 require("core.autocommand")
 require("core.lspconfig")
