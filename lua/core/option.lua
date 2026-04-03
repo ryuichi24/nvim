@@ -7,6 +7,7 @@ vim.opt.relativenumber = true -- relative line number
 vim.opt.cursorline = true -- highlight current line
 vim.opt.wrap = true -- no wrapping lines
 vim.opt.list = true -- show whitespace
+vim.opt.confirm = true -- confirm popup when you try to close a window with unsaved changes
 vim.opt.listchars = {
 	-- {tab_char}{fill_char}
 	tab = "▸▸",
