@@ -12,6 +12,7 @@ oil.setup({
 		["<C-l>"] = false,
 		-- Custom oil keymaps
 		["<C-p>"] = { "actions.preview", opts = { split = "belowright" } },
+		["<leader>cc"] = { "actions.cd", opts = { scope = "tab", remap = false } },
 	},
 	view_options = {
 		show_hidden = true,
