@@ -16,14 +16,16 @@ treesitter.install({
 	"lua",
 	"javascript",
 	"typescript",
+	"tsx",
 	"go",
 	"c",
 	"cpp",
 	"markdown",
+	"json",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "lua", "javascript", "typescript", "tsx" },
+	pattern = { "lua", "javascript", "typescript", "typescriptreact", "go", "c", "cpp", "markdown", "json" },
 	callback = function()
 		vim.treesitter.start()
 	end,
