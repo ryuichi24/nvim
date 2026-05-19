@@ -11,6 +11,7 @@ local fg = "#CBE0F0"
 local fg_dark = "#B4D0E9"
 local fg_gutter = "#627E97"
 local border = "#547998"
+local muted_blue = "#5c7cfa"
 
 require("tokyonight").setup({
 	style = "night",
@@ -33,6 +34,7 @@ require("tokyonight").setup({
 		colors.fg_sidebar = fg_dark
 	end,
 })
+
 -- load the colorscheme here
 vim.cmd([[colorscheme tokyonight]])
 
@@ -75,3 +77,8 @@ local function nvim_tree_transparent()
 end
 
 nvim_tree_transparent()
+
+vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", {
+	fg = muted_blue,
+	italic = true,
+})

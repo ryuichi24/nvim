@@ -89,7 +89,9 @@ require("mason").setup()
 vim.keymap.set("n", "<leader>lm", "<cmd>Mason<CR>", { desc = "Open Mason GUI" })
 
 -- keymaps
-vim.keymap.set("n", "<leader>li", ":lua print(vim.inspect(vim.lsp.get_active_clients()))<CR>", { desc = "LSP Info" })
+-- :checkhealth vim.deprecated
+
+vim.keymap.set("n", "<leader>li", ":lua print(vim.inspect(vim.lsp.get_clients()))<CR>", { desc = "LSP Info" })
 vim.keymap.set("n", "<leader>lc", function()
 	local clients = vim.lsp.get_clients()
 	if vim.tbl_isempty(clients) then
@@ -120,6 +122,9 @@ end, { desc = "Compact LSP Info" })
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local opts = { buffer = args.buf, silent = true }
+
+		opts.desc = "Format"
+		vim.keymap.set("n", "<leader>ll", vim.lsp.buf.format, opts)
 
 		-- set keybinds
 		opts.desc = "Show LSP references"

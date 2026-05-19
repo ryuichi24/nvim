@@ -1,3 +1,4 @@
+-- https://github.com/MeanderingProgrammer/render-markdown.nvim/wiki
 vim.pack.add({
 	{
 		name = "nvim-treesitter",

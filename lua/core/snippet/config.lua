@@ -298,7 +298,29 @@ ls.add_snippets("typescript", {
 		i(1, "message"),
 		t(");"),
 	}),
-
+	s(
+		"ex",
+		fmt(
+			[[
+		export * from "{}";
+		]],
+			{
+				i(1, "path"),
+			}
+		)
+	),
+	s(
+		"im",
+		fmt(
+			[[
+		import {{ {} }} from "{}";
+		]],
+			{
+				i(2, "item"),
+				i(1, "path"),
+			}
+		)
+	),
 	s("func", {
 		t("function "),
 		i(1, "functionName"),
@@ -353,34 +375,57 @@ local tags = {
 	"h4",
 }
 
+-- export function Comp({}: {
+--   //
+-- }) {
+--   return <></>;
+-- }
+
 local snippets = {
 	-- console.log
+	s(
+		"ex",
+		fmt(
+			[[
+		export * from "{}";
+		]],
+			{
+				i(1, "path"),
+			}
+		)
+	),
+	s(
+		"im",
+		fmt(
+			[[
+		import {{ {} }} from "{}";
+		]],
+			{
+				i(2, "item"),
+				i(1, "path"),
+			}
+		)
+	),
 	s("clg", {
 		t("console.log("),
 		i(1, "message"),
 		t(");"),
 	}),
-
 	-- React function component
 	s(
 		"rf",
 		fmt(
 			[[
-import React from "react";
-
-interface Props {{}};
-
-export const {}: React.FC<Props> = (props) => {{
-  const {{ {} }} = props;
-  return (<>{}</>);
+export function {}({{}}: {{
+	//
+}}) {{
+	return <div>{}{}</div>;
 }}
-      ]],
+			]],
 			{
-				i(1, "ComponentName"), -- export name
-				i(2), -- destructured props
-				f(function(args) -- repeat component name
-					return args[1][1]
-				end, { 1 }),
+				i(1, "Component"),
+				rep(1),
+				i(0),
 			}
 		)
 	),
@@ -651,4 +696,11 @@ vim.pack.add({{
 -- shell script
 ls.add_snippets("sh", {
 	s("shebang", fmt([[#!/bin/bash]], {})),
+})
+
+vim.api.nvim_create_autocmd("ModeChanged", {
+	pattern = "*:s",
+	callback = function()
+		print("Entered snippet mode")
+	end,
 })

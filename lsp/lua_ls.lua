@@ -92,7 +92,7 @@ return {
 			hint = { enable = true, semicolon = "Disable" },
 			diagnostics = {
 				-- Suppress warning of the "vim" global variable undefined
-				globals = { "vim" },
+				-- globals = { "vim" },
 			},
 			-- https://github.com/neovim/neovim/issues/21686#issuecomment-1522446128
 			workspace = {

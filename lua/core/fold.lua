@@ -1,21 +1,19 @@
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldmethod = "expr" -- how to determine fold level
 
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 1
-vim.opt.foldnestmax = 4
+-- vim.opt.foldlevel = 99 -- open all folder at first
+vim.opt.foldlevelstart = 1 -- open all but first level is folded
+vim.opt.foldnestmax = 8
 
 vim.o.foldcolumn = "1"
 
-vim.o.foldmethod = "expr"
-vim.o.foldtext = ""
+vim.o.foldtext = "" -- disable default fold text for syntax highlight by treesitter
 
 vim.opt.fillchars = {
-	fold = " ",
-	eob = " ",
+	fold = " ", -- fill foldcolumn with space
 	foldclose = "",
 	foldopen = "",
-	foldsep = " ",
-	-- foldinner = " ", -
+	foldsep = " ", -- separator between foldcolumn and content
 }
 
 vim.keymap.set("n", "S", "za", { desc = "Toggle fold under cursor." })
