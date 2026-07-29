@@ -1,6 +1,0 @@
-require("util.reload_config")
-require("core")
-require("util.terminal")
-require("util.lazygit")
-require("util.opencode")
-require("util.tmp")
