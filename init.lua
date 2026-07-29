@@ -1,4 +1,7 @@
 require("core.keymap")
 require("core.options")
+require("core.autocommands")
+require("core.theme")
+require("core.lsp-config")
 require("plugins")
 require("utils.logger"):register_commands()
