@@ -65,6 +65,7 @@ vim.lsp.enable({
 	"sqlls",
 	"typos_lsp",
 	"powershell_es",
+	"jdtls",
 })
 
 -- cmp

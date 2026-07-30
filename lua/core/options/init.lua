@@ -2,8 +2,6 @@ local logger = require("utils.logger"):new({ name = "options" })
 
 logger:debug("Loading options...")
 
-require("core.options.fold")
-
 -- plugin development env
 local plugin_path = "~/dev/personal/projects/nvim_plugins/*"
 vim.opt.runtimepath:append(plugin_path)

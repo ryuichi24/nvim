@@ -1,6 +1,6 @@
-local logger = require("utils.logger"):new({ name = "options.fold" })
+local logger = require("utils.logger"):new({ name = "modules.fold.config" })
 
-logger:debug("Loading options.fold...")
+logger:debug("Loading modules.fold.config...")
 
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldmethod = "expr" -- how to determine fold level

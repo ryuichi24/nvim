@@ -13,6 +13,20 @@ vim.pack.add({
 	"https://github.com/nvim-java/nvim-java",
 })
 
-require("java").setup()
+local jdtls_bin_path = vim.fs.joinpath(vim.fn.stdpath("data"), "mason", "packages", "jdtls")
 
-vim.lsp.enable("jdtls")
+logger:debug("Setting up JDTLS...", { jdtls_bin_path = jdtls_bin_path })
+
+require("java").setup({
+	jdtls = {
+		version = "1.60.0",
+		path = jdtls_bin_path,
+		auto_install = false,
+	},
+	spring_boot_tools = {
+		enable = true,
+		version = "1.55.1",
+		path = nil,
+		auto_install = true,
+	},
+})
