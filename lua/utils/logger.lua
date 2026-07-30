@@ -19,7 +19,7 @@ Logger.level_names = {
 
 -- Global state
 Logger.commands_registered = false
-Logger.global_level = Logger.levels.INFO
+Logger.global_level = Logger.levels.DEBUG
 
 ---@class Logger
 ---@field name string
