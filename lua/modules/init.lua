@@ -1,0 +1,6 @@
+require("modules.fold")
+require("modules.git")
+require("modules.terminal")
+require("modules.tab")
+require("modules.snippets")
+require("modules.quickfix")

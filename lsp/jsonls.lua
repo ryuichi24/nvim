@@ -54,15 +54,13 @@ return {
 						name = "vscode keybindings schema",
 						description = "VSCode Keybindings Schema",
 						fileMatch = { "keybindings.json" },
-						url = vim.fn.expand(
-							"~/.config/nvim/lua/core/lspconfig/jsonschema/vscode/keybindings.schema.json"
-						),
+						url = vim.fn.expand("~/.config/nvim/jsonschema/vscode/keybindings.schema.json"),
 					},
 					{
 						name = "Example",
 						description = "Example JSON schema",
 						fileMatch = { "example.json" },
-						url = vim.fn.expand("~/.config/nvim/lua/core/lspconfig/jsonschema/example/product.schema.json"),
+						url = vim.fn.expand("~/.config/nvim/jsonschema/example/product.schema.json"),
 					},
 					{
 						name = "Turborepo",
@@ -71,10 +69,16 @@ return {
 						url = vim.fn.expand("https://turborepo.dev/schema.json"),
 					},
 					{
-						name = "Tsconfig",
-						description = "Custom Tsconfig json",
+						name = "Tsconfig app",
+						description = "Custom Tsconfig app json",
 						fileMatch = { "tsconfig.app.json" },
-						url = vim.fn.expand("~/.config/nvim/lua/core/lspconfig/jsonschema/ts/tsconfig.schema.json"),
+						url = vim.fn.expand("~/.config/nvim/jsonschema/ts/tsconfig.schema.json"),
+					},
+					{
+						name = "Tsconfig node",
+						description = "Custom Tsconfig node json",
+						fileMatch = { "tsconfig.node.json" },
+						url = vim.fn.expand("~/.config/nvim/jsonschema/ts/tsconfig.schema.json"),
 					},
 				},
 			}),
