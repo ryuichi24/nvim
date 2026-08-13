@@ -22,7 +22,9 @@ vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { desc = "Move down visually se
 vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { desc = "Move up visually selected lines" })
 
 -- Paste without yanking
-vim.keymap.set("v", "p", '"_dP', { desc = "Paste over currently selected text without yanking it" })
+vim.keymap.set("x", "p", "P", {
+	desc = "Paste over selection without replacing register",
+})
 
 --  Move to end of line, ignoring trailing whitespace
 vim.keymap.set({ "n", "v" }, "$", "g_", { desc = "Move to end of line, ignoring trailing whitespace" })
