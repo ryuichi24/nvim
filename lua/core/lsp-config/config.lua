@@ -66,6 +66,7 @@ vim.lsp.enable({
 	"typos_lsp",
 	"powershell_es",
 	"jdtls",
+	"buf_ls",
 })
 
 -- cmp

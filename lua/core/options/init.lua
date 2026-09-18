@@ -27,6 +27,7 @@ vim.opt.listchars = {
 	extends = "›",
 	precedes = "‹",
 	nbsp = "␣",
+	-- space = "·",
 } -- symbols for spaces
 
 -- Editor Behavior
