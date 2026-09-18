@@ -11,6 +11,7 @@ vim.pack.add({
 	"https://github.com/mfussenegger/nvim-dap",
 
 	"https://github.com/nvim-java/nvim-java",
+	"https://github.com/jkeresman01/spring-initializr.nvim",
 })
 
 local jdtls_bin_path = vim.fs.joinpath(vim.fn.stdpath("data"), "mason", "packages", "jdtls")
@@ -30,3 +31,16 @@ require("java").setup({
 		auto_install = true,
 	},
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "java",
+	callback = function()
+		local opts = { buffer = true, remap = true }
+		vim.keymap.set("n", "<leader>jr", "<cmd>JavaRunnerRunMain<cr>", opts)
+		vim.keymap.set("n", "<leader>js", "<cmd>JavaRunnerStopMain<cr>", opts)
+		vim.keymap.set("n", "<leader>jl", "<cmd>JavaRunnerToggleLogs<cr>", opts)
+		vim.keymap.set("n", "<leader>jc", "<cmd>JavaTestRunAllTests<cr>", opts)
+	end,
+})
+
+require("spring-initializr").setup()

@@ -112,6 +112,10 @@
       "src": "https://github.com/JavaHello/spring-boot.nvim",
       "version": "'218c0c26c14d99feca778e4d13f5ec3e8b1b60f0'"
     },
+    "spring-initializr.nvim": {
+      "rev": "05bc9c5c3936c2763da3af2d002c1ad3fa1e0286",
+      "src": "https://github.com/jkeresman01/spring-initializr.nvim"
+    },
     "supermaven-nvim": {
       "rev": "07d20fce48a5629686aefb0a7cd4b25e33947d50",
       "src": "https://github.com/supermaven-inc/supermaven-nvim"

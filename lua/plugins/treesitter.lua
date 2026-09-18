@@ -29,10 +29,26 @@ treesitter.install({
 	"yaml",
 	"powershell",
 	"java",
+	"xml",
+	"proto",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "lua", "javascript", "typescript", "typescriptreact", "go", "c", "cpp", "markdown", "json", "java" },
+	pattern = {
+		"lua",
+		"javascript",
+		"typescript",
+		"typescriptreact",
+		"go",
+		"c",
+		"cpp",
+		"markdown",
+		"json",
+		"java",
+		"yaml",
+		"powershell",
+		"xml",
+	},
 	callback = function()
 		vim.treesitter.start()
 	end,
