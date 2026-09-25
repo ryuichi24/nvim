@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		local opts = { buffer = evt.buf, silent = true }
 
 		opts.desc = "Exit terminal mode with jj."
-		vim.keymap.set("t", "jj", [[<C-\><C-n>]], opts)
+		vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], opts)
 
 		opts.desc = "Toggle Terminal Session."
 		vim.keymap.set({ "n", "t" }, "<C-t>", toggle_term, opts)
