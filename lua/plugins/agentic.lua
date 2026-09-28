@@ -4,8 +4,12 @@ logger:debug("Loading plugins.agentic...")
 
 vim.pack.add({ "https://github.com/carlos-algms/agentic.nvim" })
 
+local provider = vim.env.AGENTIC_PROVIDER or "codex-acp"
+
+logger:debug("AGENTIC_PROVIDER: " .. provider)
+
 require("agentic").setup({
-	provider = "codex-acp",
+	provider = provider,
 	windows = {
 		position = "left",
 		width = "40%", -- Sidebar width (position = "right" or "left")
