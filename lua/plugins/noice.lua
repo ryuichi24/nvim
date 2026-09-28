@@ -205,3 +205,8 @@ require("noice").setup({
 	---@type NoiceFormatOptions
 	format = {}, --- @see section on formatting
 })
+
+-- see history of Noice notifications
+vim.keymap.set("n", "<leader>nh", function()
+	vim.cmd("Noice history")
+end)
