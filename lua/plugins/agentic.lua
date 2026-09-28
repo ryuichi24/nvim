@@ -18,19 +18,19 @@ require("agentic").setup({
 	},
 })
 
-vim.keymap.set({ "n", "v", "i" }, "<leader>at", function()
+vim.keymap.set({ "n" }, "<leader>at", function()
 	require("agentic").toggle()
 end, { desc = "Toggle Agentic Chat" })
 
-vim.keymap.set({ "n", "v" }, "<leader>ap", function()
+vim.keymap.set({ "n" }, "<leader>ap", function()
 	require("agentic").add_selection_or_file_to_context()
 end, { desc = "Add file or selection to Agentic Context" })
 
-vim.keymap.set({ "n", "v", "i" }, "<leader>an", function()
+vim.keymap.set({ "n" }, "<leader>an", function()
 	require("agentic").new_session()
 end, { desc = "New Agentic Session" })
 
-vim.keymap.set({ "n", "v", "i" }, "<leader>ar", function()
+vim.keymap.set({ "n" }, "<leader>ar", function()
 	require("agentic").restore_session()
 end, {
 	desc = "Agentic Restore Session",
@@ -45,6 +45,6 @@ vim.keymap.set("n", "<leader>aD", function()
 	require("agentic").add_buffer_diagnostics()
 end, { desc = "Add all buffer diagnostics to Agentic" })
 
-vim.keymap.set({ "n", "v", "i" }, "<leader>aw", function()
+vim.keymap.set({ "n" }, "<leader>aw", function()
 	require("agentic").rotate_layout({ "right", "bottom", "left" })
 end, { desc = "Rotate Agentic window (right/bottom/left)" })
