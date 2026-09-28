@@ -24,9 +24,9 @@ vim.pack.add({
 local render_markdown = require("render-markdown")
 
 render_markdown.setup({
-	enabled = false,
+	enabled = true,
 	anti_conceal = { enabled = false },
-	file_types = { "markdown" },
+	file_types = { "markdown", "AgenticChat" },
 	render_modes = { "n", "c", "t", "i", "v" },
 	padding = {
 		highlight = "Normal",
@@ -283,7 +283,7 @@ vim.api.nvim_create_autocmd("BufAdd", {
 		-- keymaps
 		local opts = { buffer = evt.buf }
 		vim.keymap.set("n", "<leader>mp", function()
-			render_markdown.toggle()
+			render_markdown.buf_toggle()
 		end, opts)
 	end,
 })
@@ -304,6 +304,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
 			bg = "#161b22",
 			bold = true,
 		})
+
+		logger:debug("Disabling render-markdown...")
+		render_markdown.buf_disable()
 	end,
 })
 
