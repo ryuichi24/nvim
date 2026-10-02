@@ -2,6 +2,7 @@ local logger = require("utils.logger"):new({ name = "plugins" })
 
 logger:debug("Loading plugins...")
 
+require("plugins.aero")
 require("plugins.oil")
 require("plugins.treesitter")
 require("plugins.telescope")
@@ -16,4 +17,4 @@ require("plugins.nvim-tree")
 require("plugins.which-key")
 require("plugins.vim-tmux-navigator")
 require("plugins.lazydocker")
-require("plugins.agentic")
+-- require("plugins.agentic")

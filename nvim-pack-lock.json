@@ -8,6 +8,10 @@
       "rev": "19e40cef03a380bfb578793a08222826118664dd",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
+    "aero.nvim": {
+      "rev": "1665201071bf7c196c6c9b81557725532249ed24",
+      "src": "https://github.com/ryuichi24/aero.nvim"
+    },
     "agentic.nvim": {
       "rev": "81628c1dc07edadd1c2c3c27d8dbcb424da1dea0",
       "src": "https://github.com/carlos-algms/agentic.nvim"
