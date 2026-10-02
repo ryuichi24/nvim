@@ -9,6 +9,7 @@ vim.pack.add({
 local oil = require("oil")
 
 oil.setup({
+	watch_for_changes = true,
 	default_file_explorer = true,
 	keymaps = {
 		-- Disable the default keymaps
