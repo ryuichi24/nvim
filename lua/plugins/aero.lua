@@ -63,7 +63,7 @@ aero.setup({
 		agent = {
 			enabled = true, -- opt in to task tools for ACP sessions
 			executable = false, -- installed binary; or an absolute custom executable path
-			adapters = { "opencode-acp" }, -- allowed names from the agents table
+			adapters = { "opencode-acp", "claude-agent-acp", "codex-acp" }, -- allowed names from the agents table
 			prompt = "Read the ticket through Aero's task tools and implement its requirements. Record progress and verification results with aero_update_ticket_body. Discover current board states before explicitly moving the ticket with aero_move_ticket. Do not write the task documents directly.",
 		},
 		keymaps = {
