@@ -5,16 +5,12 @@
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "SchemaStore.nvim": {
-      "rev": "19e40cef03a380bfb578793a08222826118664dd",
+      "rev": "d93ef1e8365950420ea3e706e82caf65dc9ff968",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "aero.nvim": {
-      "rev": "1665201071bf7c196c6c9b81557725532249ed24",
+      "rev": "d32c33897a327730dddf34e36b6a417be1cd3828",
       "src": "https://github.com/ryuichi24/aero.nvim"
-    },
-    "agentic.nvim": {
-      "rev": "81628c1dc07edadd1c2c3c27d8dbcb424da1dea0",
-      "src": "https://github.com/carlos-algms/agentic.nvim"
     },
     "cmp-nvim-lsp": {
       "rev": "cbc7b02bb99fae35cb42f514762b89b5126651ef",
@@ -24,8 +20,13 @@
       "rev": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90",
       "src": "https://github.com/saadparwaiz1/cmp_luasnip"
     },
+    "codecompanion.nvim": {
+      "rev": "6794c8bcbe9e8614588749cafb5de29d7fa57c3b",
+      "src": "https://www.github.com/olimorris/codecompanion.nvim",
+      "version": "19.0.0 - 20.0.0"
+    },
     "conform.nvim": {
-      "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
+      "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "dressing.nvim": {
@@ -33,15 +34,19 @@
       "src": "https://github.com/stevearc/dressing.nvim"
     },
     "firenvim": {
-      "rev": "ab0e51bfa4e01191d0bfd1eee15388ac816e702e",
+      "rev": "302c105ff79c51d3d362eb37210f95f65285926d",
       "src": "https://github.com/glacambre/firenvim"
     },
     "gitsigns.nvim": {
-      "rev": "31d6fb2d618bca1482b9f274751ead5f03461408",
+      "rev": "070a5d7b985546cc57e1fc61e5bc507fecac6045",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
+    "lazydocker.nvim": {
+      "rev": "e971ef5d5bba424583c7b8c844e075cdae09f4ad",
+      "src": "https://github.com/mgierada/lazydocker.nvim"
+    },
     "lazygit.nvim": {
-      "rev": "a04ad0dbc725134edbee3a5eea29290976695357",
+      "rev": "9ffc6103926718f7070fb4017694543cd7dc9718",
       "src": "https://github.com/kdheepak/lazygit.nvim"
     },
     "lspkind.nvim": {
@@ -61,7 +66,7 @@
       "src": "https://github.com/folke/noice.nvim"
     },
     "nui.nvim": {
-      "rev": "de740991c12411b663994b2860f1a4fd0937c130",
+      "rev": "10fc361835c856ba4233ef5ea135b919bf3dce97",
       "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-cmp": {
@@ -69,32 +74,32 @@
       "src": "https://github.com/hrsh7th/nvim-cmp"
     },
     "nvim-dap": {
-      "rev": "9e848e09a697ee95302a3ef2dd43fd6eb709e570",
+      "rev": "cfa2d58f4537aca6ca83e2de1a0d9f1491121264",
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-java": {
-      "rev": "9e8b842ea9eff3ebf25fb7360908ed4d4f87c56a",
+      "rev": "db5536b4cb3da153084e50016596fd0e3a319aae",
       "src": "https://github.com/nvim-java/nvim-java"
     },
     "nvim-lspconfig": {
-      "rev": "b7b920947f21339ee41fbb38c79d6445e12900aa",
+      "rev": "3e8d598d3b5f8338a41699c436e5fa11d2666cf0",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree.lua": {
-      "rev": "4213bd6eabac38b16dd6615002b6243b23cf3bf6",
+      "rev": "478c69c0fe253caea88de9c5e138bfa77395a59a",
       "src": "https://github.com/nvim-tree/nvim-tree.lua"
     },
     "nvim-treesitter": {
-      "rev": "61df84986b4b4ec469ee745a182e433d49f8c27e",
+      "rev": "e289100ff98969e118c702199d88b764ce9e7fdf",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "nvim-ts-autotag": {
-      "rev": "8e1c0a389f20bf7f5b0dd0e00306c1247bda2595",
+      "rev": "d7220b55e16ed3c04e88086256def5d282429493",
       "src": "https://github.com/windwp/nvim-ts-autotag"
     },
     "nvim-web-devicons": {
-      "rev": "2ae6958df7ced50baac5035cec0c15799eedfbf7",
+      "rev": "58447c1fca354bbf184425e4a8d01deecbd6f3c4",
       "src": "https://github.com/nvim-tree/nvim-web-devicons",
       "version": "'master'"
     },
@@ -111,7 +116,7 @@
       "src": "https://github.com/kevinhwang91/promise-async"
     },
     "render-markdown": {
-      "rev": "f422cb5c6855f150e2ddcfaf44e7157b98b34f6a",
+      "rev": "640a3ec6d538bad17c328be373c7cad0293d9589",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim",
       "version": "'main'"
     },
@@ -133,7 +138,7 @@
       "src": "https://github.com/luckasRanarison/tailwind-tools.nvim"
     },
     "telescope.nvim": {
-      "rev": "427b576c16792edad01a92b89721d923c19ad60f",
+      "rev": "40aedd8a68c78a656a10a8d62d80c54af59420fb",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "tokyonight.nvim": {
