@@ -7,6 +7,7 @@ vim.pack.add({ "https://github.com/ryuichi24/aero.nvim" })
 local aero = require("aero")
 
 aero.setup({
+
 	agents = {
 		-- terminal agents
 		claude = { cmd = { "claude" }, resume = { "claude", "--continue" }, key = "c" },
@@ -41,11 +42,15 @@ aero.setup({
 	persist_buffers = true, -- remember each worktree's last code file/directory and cursor
 	state_file = vim.fn.stdpath("data") .. "/Aero/state.json",
 	events = {}, -- lifecycle event -> function or list of functions; see above
-	acp = { max_tool_lines = 20, prompt_height = 8 },
+	acp = { max_tool_lines = 20, prompt_height = 30, decorations = true, show_usage = true },
 	keymaps = { --[[ see lua/aero/config.lua; set any to false ]]
 	},
 })
 
 vim.keymap.set({ "n" }, "<leader>ar", function()
 	aero.open()
+end, { desc = "Add Agent" })
+
+vim.keymap.set({ "n" }, "<leader>at", function()
+	aero.terminal()
 end, { desc = "Add Agent" })
