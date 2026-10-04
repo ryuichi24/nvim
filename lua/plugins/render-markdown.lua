@@ -292,18 +292,18 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = "*.md",
 	callback = function(evt)
 		-- color theme
-		local opts = { bg = "#212830" }
-		vim.api.nvim_set_hl(0, "Normal", opts)
-		vim.api.nvim_set_hl(0, "NormalNC", opts)
-		vim.api.nvim_set_hl(0, "EndOfBuffer", opts)
-
-		vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = "#262c36" })
-
-		vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", {
-			fg = "#58a6ff",
-			bg = "#161b22",
-			bold = true,
-		})
+		-- local opts = { bg = "#212830" }
+		-- vim.api.nvim_set_hl(0, "Normal", opts)
+		-- vim.api.nvim_set_hl(0, "NormalNC", opts)
+		-- vim.api.nvim_set_hl(0, "EndOfBuffer", opts)
+		--
+		-- vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = "#262c36" })
+		--
+		-- vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", {
+		-- 	fg = "#58a6ff",
+		-- 	bg = "#161b22",
+		-- 	bold = true,
+		-- })
 
 		logger:debug("Disabling render-markdown...")
 		render_markdown.buf_disable()
@@ -313,9 +313,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_autocmd("BufLeave", {
 	pattern = "*.md",
 	callback = function()
-		local opts = { bg = "none" }
-		vim.api.nvim_set_hl(0, "Normal", opts)
-		vim.api.nvim_set_hl(0, "NormalNC", opts)
-		vim.api.nvim_set_hl(0, "EndOfBuffer", opts)
+		-- local opts = { bg = "none" }
+		-- vim.api.nvim_set_hl(0, "Normal", opts)
+		-- vim.api.nvim_set_hl(0, "NormalNC", opts)
+		-- vim.api.nvim_set_hl(0, "EndOfBuffer", opts)
 	end,
 })
