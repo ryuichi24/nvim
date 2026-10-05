@@ -277,14 +277,16 @@ render_markdown.setup({
 	},
 })
 
-vim.api.nvim_create_autocmd("BufAdd", {
-	pattern = "*.md",
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("MarkdownKeymaps", { clear = true }),
+	pattern = "markdown",
 	callback = function(evt)
-		-- keymaps
-		local opts = { buffer = evt.buf }
 		vim.keymap.set("n", "<leader>mp", function()
 			render_markdown.buf_toggle()
-		end, opts)
+		end, {
+			buffer = evt.buf,
+			desc = "Toggle Markdown rendering in this buffer",
+		})
 	end,
 })
 
