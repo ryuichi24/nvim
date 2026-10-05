@@ -17,6 +17,7 @@ treesitter.setup({
 })
 
 treesitter.install({
+	"bash",
 	"lua",
 	"javascript",
 	"typescript",
@@ -35,6 +36,7 @@ treesitter.install({
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = {
+		"sh",
 		"lua",
 		"javascript",
 		"typescript",
