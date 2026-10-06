@@ -135,3 +135,15 @@ end, { desc = "Add Agent" })
 vim.keymap.set({ "n" }, "<leader>at", function()
 	aero.terminal()
 end, { desc = "Add Agent" })
+
+vim.keymap.set("n", "<leader>as", function()
+	aero.sessions()
+end, { desc = "Search active AI sessions" })
+
+vim.keymap.set("n", "<leader>aw", function()
+	aero.worktrees()
+end, { desc = "Search worktrees" })
+
+vim.keymap.set("n", "<leader>aW", function()
+	aero.workspaces()
+end, { desc = "Search workspaces" })
