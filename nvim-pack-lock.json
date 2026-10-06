@@ -5,11 +5,11 @@
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "SchemaStore.nvim": {
-      "rev": "d93ef1e8365950420ea3e706e82caf65dc9ff968",
+      "rev": "83b0f1dc1ef1cc736bb4216654b1d173bcaf4ba6",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "aero.nvim": {
-      "rev": "d32c33897a327730dddf34e36b6a417be1cd3828",
+      "rev": "cfb43bd5079661b1f9ead6d7e12f1af32214d456",
       "src": "https://github.com/ryuichi24/aero.nvim"
     },
     "cmp-nvim-lsp": {
@@ -38,7 +38,7 @@
       "src": "https://github.com/glacambre/firenvim"
     },
     "gitsigns.nvim": {
-      "rev": "070a5d7b985546cc57e1fc61e5bc507fecac6045",
+      "rev": "851a051e2bd2caba97e23314c68d69f1b1cf5d19",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "lazydocker.nvim": {
@@ -82,7 +82,7 @@
       "src": "https://github.com/nvim-java/nvim-java"
     },
     "nvim-lspconfig": {
-      "rev": "3e8d598d3b5f8338a41699c436e5fa11d2666cf0",
+      "rev": "910f0c4d46aa186641518395bc7e6fffb4d23baf",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree.lua": {
