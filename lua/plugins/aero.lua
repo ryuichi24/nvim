@@ -6,6 +6,8 @@ vim.pack.add({ "https://github.com/ryuichi24/aero.nvim" })
 
 local aero = require("aero")
 
+local tailscale_ip = vim.env.AERO_TAILSCALE_IP
+
 aero.setup({
 	agents = {
 		claude = { cmd = { "claude" }, resume = { "claude", "--continue" }, key = "c" },
@@ -126,7 +128,15 @@ aero.setup({
 		exited = "✗",
 		stopped = "○",
 	},
+	companion = {
+		bind = tailscale_ip or "127.0.0.1",
+		port = 8765,
+		origin = "http://" .. (tailscale_ip or "localhost") .. ":8765",
+		allow_http = tailscale_ip ~= nil,
+	},
 })
+
+--
 
 vim.keymap.set({ "n" }, "<leader>ar", function()
 	aero.open()
