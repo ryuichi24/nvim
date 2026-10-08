@@ -7,6 +7,7 @@ vim.pack.add({ "https://github.com/ryuichi24/aero.nvim" })
 local aero = require("aero")
 
 local tailscale_ip = vim.env.AERO_TAILSCALE_IP
+local kanban_mcp_exe = vim.env.AERO_KANBAN_MCP_EXE
 
 aero.setup({
 	agents = {
@@ -64,7 +65,7 @@ aero.setup({
 		column_width = 32,
 		agent = {
 			enabled = true, -- opt in to task tools for ACP sessions
-			executable = false, -- installed binary; or an absolute custom executable path
+			executable = kanban_mcp_exe or false,
 			adapters = { "opencode-acp", "claude-agent-acp", "codex-acp" }, -- allowed names from the agents table
 			prompt = "Read the ticket through Aero's task tools and implement its requirements. Record progress and verification results with aero_update_ticket_body. Discover current board states before explicitly moving the ticket with aero_move_ticket. Do not write the task documents directly.",
 		},
@@ -133,6 +134,7 @@ aero.setup({
 		port = 8765,
 		origin = "http://" .. (tailscale_ip or "localhost") .. ":8765",
 		allow_http = tailscale_ip ~= nil,
+		auto_start = true,
 	},
 })
 
