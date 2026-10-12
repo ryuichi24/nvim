@@ -51,6 +51,7 @@ aero.setup({
 		prompt_height = 25,
 		decorations = true, -- native transcript cards, colors, and visual borders
 		show_usage = true, -- agent-reported tokens, context usage, and cumulative fees
+		image_previews = true,
 	},
 	reports = {
 		directory = "data", -- data | worktree | custom root | function(worktree, workspace_root)
@@ -135,6 +136,12 @@ aero.setup({
 		origin = "http://" .. (tailscale_ip or "localhost") .. ":8765",
 		allow_http = tailscale_ip ~= nil,
 		auto_start = true,
+		ui = {
+			source_collapsed_by_default = true,
+		},
+	},
+	mermaid = {
+		enabled = true,
 	},
 })
 
@@ -146,7 +153,7 @@ end, { desc = "Add Agent" })
 
 vim.keymap.set({ "n" }, "<leader>at", function()
 	aero.terminal()
-end, { desc = "Add Agent" })
+end, { desc = "Toggle worktree terminal" })
 
 vim.keymap.set("n", "<leader>as", function()
 	aero.sessions()
@@ -159,3 +166,7 @@ end, { desc = "Search worktrees" })
 vim.keymap.set("n", "<leader>aW", function()
 	aero.workspaces()
 end, { desc = "Search workspaces" })
+
+vim.keymap.set({ "n" }, "<leader>ai", function()
+	require("aero.acp").toggle_prompt()
+end, { desc = "Aero: toggle input panel" })
