@@ -11,6 +11,10 @@ vim.pack.add({
 	},
 })
 
+local server_port = vim.env.NVIM_MARKDOWN_PREVIEW_SERVER_PORT or "5656"
+
+vim.g.mkdp_port = server_port
+
 -- build after install/update
 vim.api.nvim_create_autocmd("PackChanged", {
 	pattern = "markdown-preview.nvim",
