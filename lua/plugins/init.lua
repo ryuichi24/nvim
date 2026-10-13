@@ -3,6 +3,7 @@ local logger = require("utils.logger"):new({ name = "plugins" })
 logger:debug("Loading plugins...")
 
 require("plugins.aero")
+require("plugins.ito")
 require("plugins.oil")
 require("plugins.treesitter")
 require("plugins.telescope")
