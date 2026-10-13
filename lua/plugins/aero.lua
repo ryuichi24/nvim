@@ -28,7 +28,7 @@ aero.setup({
 	dashboard = { position = "left", width = 40 }, -- left | right | current
 	panel = { position = "right", width = 80 }, -- left | right; false uses last window
 	worktree_tabs = true,
-	terminal = { height = 12, cmd = nil }, -- nil uses { vim.o.shell }
+	terminal = { height = 24, cmd = nil }, -- nil uses { vim.o.shell }
 	idle_ms = 1500, -- terminal output inactivity before idle
 	notify_idle = true, -- notify when hidden sessions become idle
 	start_insert = true,
@@ -140,6 +140,7 @@ aero.setup({
 			source_collapsed_by_default = true,
 		},
 	},
+	-- pnpm add -g @mermaid-js/mermaid-cli
 	mermaid = {
 		enabled = true,
 	},
@@ -155,18 +156,18 @@ vim.keymap.set({ "n" }, "<leader>at", function()
 	aero.terminal()
 end, { desc = "Toggle worktree terminal" })
 
-vim.keymap.set("n", "<leader>as", function()
-	aero.sessions()
-end, { desc = "Search active AI sessions" })
-
-vim.keymap.set("n", "<leader>aw", function()
-	aero.worktrees()
-end, { desc = "Search worktrees" })
-
-vim.keymap.set("n", "<leader>aW", function()
-	aero.workspaces()
-end, { desc = "Search workspaces" })
-
 vim.keymap.set({ "n" }, "<leader>ai", function()
 	require("aero.acp").toggle_prompt()
 end, { desc = "Aero: toggle input panel" })
+
+vim.keymap.set("n", "<leader>fw", function()
+	aero.worktrees()
+end, { desc = "Search worktrees" })
+
+vim.keymap.set("n", "<leader>fW", function()
+	aero.workspaces()
+end, { desc = "Search workspaces" })
+
+vim.keymap.set("n", "<leader>fa", function()
+	aero.sessions()
+end, { desc = "Search active AI sessions" })
