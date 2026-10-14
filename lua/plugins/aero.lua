@@ -52,6 +52,7 @@ aero.setup({
 		decorations = true, -- native transcript cards, colors, and visual borders
 		show_usage = true, -- agent-reported tokens, context usage, and cumulative fees
 		image_previews = true,
+		tab_completion = false,
 	},
 	reports = {
 		directory = "data", -- data | worktree | custom root | function(worktree, workspace_root)
