@@ -307,8 +307,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		-- 	bold = true,
 		-- })
 
-		logger:debug("Disabling render-markdown...")
-		render_markdown.buf_disable()
+		-- logger:debug("Disabling render-markdown...")
+		-- render_markdown.buf_disable()
 	end,
 })
 
