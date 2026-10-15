@@ -53,6 +53,16 @@ aero.setup({
 		show_usage = true, -- agent-reported tokens, context usage, and cumulative fees
 		image_previews = true,
 		tab_completion = false,
+		line_numbers = {
+			transcript = {
+				show = true,
+				relative = true,
+			},
+			prompt = {
+				show = true,
+				relative = true,
+			},
+		},
 	},
 	reports = {
 		directory = "data", -- data | worktree | custom root | function(worktree, workspace_root)
