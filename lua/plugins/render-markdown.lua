@@ -275,6 +275,9 @@ render_markdown.setup({
 			"RenderMarkdownTableRow",
 		},
 	},
+	ignore = function(buf)
+		return vim.b[buf].aero_chat_key ~= nil
+	end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
