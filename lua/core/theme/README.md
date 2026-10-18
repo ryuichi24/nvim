@@ -11,7 +11,10 @@ local theme = "graphite"
 | `graphite` | Charcoal background, subtle borders, and muted syntax colors. Built on TokyoNight's syntax and plugin integrations. |
 | `catppuccin` | Catppuccin Mocha: dark background with soft pastel syntax colors. |
 | `tokyonight` | The existing customized, transparent blue TokyoNight theme. |
+| `kanagawa` | Kanagawa Wave: muted ink-like blues with warm, balanced syntax colors. |
+| `gruvbox` | Gruvbox dark with hard contrast: warm earthy colors on a deep charcoal background. |
+| `rosepine` | Rosé Pine Main: soft rose, gold, and lavender colors on a dark purple background. |
 
-The Graphite and Catppuccin themes use opaque backgrounds so their palettes
+All themes except TokyoNight use opaque backgrounds so their palettes
 look consistent regardless of the terminal's background color. Plugins are installed
 through `vim.pack` when their theme is first loaded.
