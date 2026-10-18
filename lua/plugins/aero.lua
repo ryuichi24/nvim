@@ -186,3 +186,32 @@ end, { desc = "Search workspaces" })
 vim.keymap.set("n", "<leader>fa", function()
 	aero.sessions()
 end, { desc = "Search active AI sessions" })
+
+vim.keymap.set("n", "<leader>rs", function()
+	aero.reader("source")
+end, { desc = "Reader: Source" })
+
+vim.keymap.set("n", "<leader>re", function()
+	aero.reader("exports")
+end, { desc = "Reader: Exported logs" })
+
+vim.keymap.set("n", "<leader>rf", function()
+	aero.reader("references")
+end, { desc = "Reader: References" })
+
+vim.keymap.set("n", "<leader>rr", function()
+	aero.reader("reports")
+end, { desc = "Reader: Reports" })
+
+-- Change the display mode.
+vim.keymap.set("n", "<leader>rm", function()
+	aero.reader()
+end, { desc = "Reader: Toggle tabs/panes" })
+
+vim.keymap.set("n", "<leader>rt", function()
+	aero.reader("tabs")
+end, { desc = "Reader: Tabs mode" })
+
+vim.keymap.set("n", "<leader>rp", function()
+	aero.reader("panes")
+end, { desc = "Reader: Panes mode" })
