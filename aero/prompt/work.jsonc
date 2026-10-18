@@ -1,0 +1,45 @@
+// Aero prompt snippets
+// Add objects to this array; each needs a unique name and a non-empty prompt.
+// description is optional. Use \n inside a prompt string for a newline.
+// Comments and trailing commas are supported. Save, then open /prompt to reload.
+// Files load alphabetically; later names win. Workspace snippets override global ones.
+// {{custom_name}} asks for input; repeated variables ask once. Cancel keeps the draft.
+// The example's {{topic}} is a custom input variable, not a built-in:
+// selecting this snippet asks what topic to investigate and inserts your answer.
+// Replace it or add placeholders such as {{focus}} to ask your own questions.
+// Built-ins are captured when /prompt opens; unavailable context becomes empty text.
+// Editor context comes from the source window, not the composer.
+//
+// | Variable           | Runtime value                                      |
+// | ------------------ | -------------------------------------------------- |
+// | {{workspace}}      | Main repository root (session directory outside Git) |
+// | {{worktree}}       | Session worktree path                              |
+// | {{session}}        | Session name                                       |
+// | {{cwd}}            | Neovim current working directory                   |
+// | {{date}}           | Local date: YYYY-MM-DD                             |
+// | {{time}}           | Local time: HH:MM:SS                               |
+// | {{workspace_name}} | Workspace root folder name                         |
+// | {{worktree_name}}  | Session worktree folder name                       |
+// | {{branch}}         | Git branch (empty for detached HEAD)               |
+// | {{file}}           | Absolute source-file path                          |
+// | {{filetype}}       | Source buffer filetype, e.g. lua                    |
+// | {{selection}}      | Last visual selection in the source buffer         |
+// | {{diagnostics}}    | Source diagnostics: path, position, severity, message |
+// | {{diff}}           | Tracked staged + unstaged changes against HEAD     |
+//
+// Diff excludes untracked files and is empty before the first commit.
+// Variable names are case-sensitive: letters/digits/underscores, no leading digit.
+// Values are inserted literally and the generated prompt is not sent automatically.
+[
+  {
+    "name": "ticket study",
+    "description": "Study the ticket and investigate the issue and solution.",
+    "prompt":[
+		"I got a new ticket and I want to study it so I can start working on it.",
+		"",
+		"title: {{ticket_title}}",
+		"body: {{ticket_body}}",
+		""
+	]
+  }
+]
