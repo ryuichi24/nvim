@@ -165,7 +165,11 @@ aero.setup({
 
 vim.keymap.set({ "n" }, "<leader>ar", function()
 	aero.open()
-end, { desc = "Add Agent" })
+end, { desc = "Open dashboard" })
+
+vim.keymap.set("n", "<leader>co", function()
+	require("aero").review()
+end, { desc = "Aero: review changes" })
 
 vim.keymap.set({ "n" }, "<leader>at", function()
 	aero.terminal()
@@ -174,6 +178,18 @@ end, { desc = "Toggle worktree terminal" })
 vim.keymap.set({ "n" }, "<leader>ai", function()
 	require("aero.acp").toggle_prompt()
 end, { desc = "Aero: toggle input panel" })
+
+vim.keymap.set({ "n" }, "<leader>af", function()
+	require("aero").file()
+end, {
+	desc = "Aero: add current file to agent prompt",
+})
+
+vim.keymap.set({ "v" }, "<leader>aq", function()
+	require("aero").quote()
+end, {
+	desc = "Aero: quote selection into agent prompt",
+})
 
 vim.keymap.set("n", "<leader>fw", function()
 	aero.worktrees()
