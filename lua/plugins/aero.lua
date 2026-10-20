@@ -164,7 +164,7 @@ aero.setup({
 --
 
 vim.keymap.set({ "n" }, "<leader>ar", function()
-	aero.open()
+	aero.toggle()
 end, { desc = "Open dashboard" })
 
 vim.keymap.set("n", "<leader>co", function()
@@ -231,3 +231,30 @@ end, { desc = "Reader: Tabs mode" })
 vim.keymap.set("n", "<leader>rp", function()
 	aero.reader("panes")
 end, { desc = "Reader: Panes mode" })
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	group = vim.api.nvim_create_augroup("AeroReviewKeymaps", { clear = true }),
+	callback = function(event)
+		if not vim.b[event.buf].aero_review then
+			return
+		end
+
+		local function map(key, action, desc)
+			vim.keymap.set("n", key, function()
+				require("aero.review").command(action)
+			end, {
+				buffer = event.buf,
+				desc = desc,
+			})
+		end
+
+		map("<leader>rd", "diff", "Review: toggle diff/code")
+		map("<leader>rr", "refresh", "Review: refresh")
+		map("<leader>rb", "base", "Review: choose base")
+		map("<leader>rl", "local", "Review: local changes")
+	end,
+})
+
+vim.keymap.set("n", "<leader>an", function()
+	require("aero").new()
+end, { desc = "New agent session" })
