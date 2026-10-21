@@ -260,5 +260,5 @@ vim.keymap.set("n", "<leader>an", function()
 end, { desc = "New agent session" })
 
 vim.keymap.set("n", "<leader>as", function()
-	require("aero").pick()
-end, { desc = "Select Aero session" })
+	require("aero").pick("current")
+end, { desc = "Select worktree session" })
