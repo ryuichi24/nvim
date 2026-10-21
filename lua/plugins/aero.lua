@@ -258,3 +258,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 vim.keymap.set("n", "<leader>an", function()
 	require("aero").new()
 end, { desc = "New agent session" })
+
+vim.keymap.set("n", "<leader>as", function()
+	require("aero").pick()
+end, { desc = "Select Aero session" })
