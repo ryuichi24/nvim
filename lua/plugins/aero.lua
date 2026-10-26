@@ -22,6 +22,11 @@ aero.setup({
 		["codex-acp"] = { type = "acp", cmd = { "npx", "-y", "@agentclientprotocol/codex-acp" }, key = "X" },
 		["opencode-acp"] = { type = "acp", cmd = { "opencode", "acp" }, key = "O" },
 	},
+	reading = {
+		agent = {
+			enabled = true,
+		},
+	},
 	worktree_path = function(ws, branch)
 		return vim.fs.joinpath(
 			vim.fs.dirname(ws.root),
@@ -42,6 +47,12 @@ aero.setup({
 	resize = { -- false disables
 		prefix = "<C-w>",
 		keys = { grow = "k", shrink = "j", narrow = "h", widen = "l" },
+		steps = {
+			grow = 8,
+			shrink = 8,
+			narrow = 8,
+			widen = 8,
+		},
 	},
 	persist_sessions = true,
 	prompt_session_name = true, -- ask for a name with `a` or agent shortcuts; false uses automatic names
@@ -191,6 +202,10 @@ end, {
 	desc = "Aero: quote selection into agent prompt",
 })
 
+vim.keymap.set("n", "<leader>al", function()
+	require("aero").reading()
+end, { desc = "Aero: Pick reading list" })
+
 vim.keymap.set("n", "<leader>fw", function()
 	aero.worktrees()
 end, { desc = "Search worktrees" })
@@ -218,6 +233,10 @@ end, { desc = "Reader: References" })
 vim.keymap.set("n", "<leader>rr", function()
 	aero.reader("reports")
 end, { desc = "Reader: Reports" })
+
+vim.keymap.set("n", "<leader>rl", function()
+	aero.reader("reading")
+end, { desc = "Reader: Reading List" })
 
 -- Change the display mode.
 vim.keymap.set("n", "<leader>rm", function()
