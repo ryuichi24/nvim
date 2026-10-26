@@ -44,16 +44,7 @@ aero.setup({
 	animation = true,
 	fullscreen_key = "gF", -- false disables
 	quote_key = "<leader>aq", -- false disables
-	resize = { -- false disables
-		prefix = "<C-w>",
-		keys = { grow = "k", shrink = "j", narrow = "h", widen = "l" },
-		steps = {
-			grow = 8,
-			shrink = 8,
-			narrow = 8,
-			widen = 8,
-		},
-	},
+	resize = false, -- preserve native <C-w>h/j/k/l pane navigation
 	persist_sessions = true,
 	prompt_session_name = true, -- ask for a name with `a` or agent shortcuts; false uses automatic names
 	input = { adapter = "auto", select_default = true }, -- auto | dressing | snacks | vim_ui | function
