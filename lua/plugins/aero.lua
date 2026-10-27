@@ -26,6 +26,9 @@ aero.setup({
 		agent = {
 			enabled = true,
 		},
+		explanation = {
+			unfold = true, -- default; false preserves your normal folding defaults
+		},
 	},
 	worktree_path = function(ws, branch)
 		return vim.fs.joinpath(
@@ -44,7 +47,11 @@ aero.setup({
 	animation = true,
 	fullscreen_key = "gF", -- false disables
 	quote_key = "<leader>aq", -- false disables
-	resize = false, -- preserve native <C-w>h/j/k/l pane navigation
+	resize = {
+		-- prefix = "<C-w>",
+		-- keys = { grow = "k", shrink = "j", narrow = "h", widen = "l" },
+		steps = { grow = 8, shrink = 8, narrow = 8, widen = 8 },
+	},
 	persist_sessions = true,
 	prompt_session_name = true, -- ask for a name with `a` or agent shortcuts; false uses automatic names
 	input = { adapter = "auto", select_default = true }, -- auto | dressing | snacks | vim_ui | function
