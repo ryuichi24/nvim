@@ -11,14 +11,14 @@ vim.pack.add({
 	},
 })
 
-local server_port = vim.env.NVIM_MARKDOWN_PREVIEW_SERVER_PORT or "5656"
+local server_port = vim.env.NVIM_MARKDOWN_PREVIEW_SERVER_PORT or "5657"
 
 -- set the fixed port
 vim.g.mkdp_port = server_port
 vim.g.mkdp_auto_close = 0
 vim.g.mkdp_open_to_the_world = 1
 vim.g.mkdp_open_ip = "127.0.0.1"
-vim.g.mkdp_browser = "echo"
+-- vim.g.mkdp_browser = "echo"
 
 -- build after install/update
 vim.api.nvim_create_autocmd("PackChanged", {
