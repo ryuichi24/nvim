@@ -7,91 +7,177 @@ vim.pack.add({ "https://github.com/ryuichi24/aero.nvim" })
 local aero = require("aero")
 
 local tailscale_ip = vim.env.AERO_TAILSCALE_IP
-local kanban_mcp_exe = vim.env.AERO_KANBAN_MCP_EXE
+local aero_mcp_exe = vim.env.AERO_MCP_EXE
 
 aero.setup({
+	sessions = {
+		idle_ms = 1500,
+		notify_idle = true,
+		start_insert = true,
+		prompt_name = true,
+	},
+	storage = {
+		sessions = true,
+		buffers = true,
+		state_file = vim.fn.stdpath("data") .. "/Aero/state.json",
+	},
+	worktrees = {
+		tabs = true,
+		path = function(ws, branch)
+			return vim.fs.joinpath(
+				vim.fs.dirname(ws.root),
+				vim.fs.basename(ws.root) .. ".worktrees",
+				(branch:gsub("/", "-"))
+			)
+		end,
+	},
+	ui = {
+		dashboard = {
+			position = "left",
+			width = 40,
+			sidebar = { line_numbers = { show = true, relative = true } },
+			keymaps = {
+				open = "<CR>",
+				expand = "l",
+				collapse = "h",
+				toggle = "<Tab>",
+				open_vsplit = "<C-v>",
+				open_split = "<C-x>",
+				open_tab = "<C-t>",
+				add = "a",
+				add_workspace = "A",
+				delete = "d",
+				stop = "s",
+				restart = "r",
+				rename = "N",
+				refresh = "R",
+				pull = "P",
+				cd = ".",
+				edit = "e",
+				open_board_markdown = "I",
+				edit_enter = "<C-CR>",
+				edit_mouse = "<C-LeftMouse>",
+				terminal = "t",
+				next_workspace = "]]",
+				prev_workspace = "[[",
+				close = "q",
+				help = "g?",
+			},
+		},
+		panel = {
+			position = "right",
+			width = 80,
+			info_open_by_default = false,
+			info_height_rows = 6,
+			info_auto_position = true,
+			info_position_threshold_columns = 120,
+		},
+		terminal = {
+			height = 24,
+			cmd = nil, -- nil uses { vim.o.shell }
+		},
+		layout = {
+			min_code_width = 20,
+		},
+		animation = true,
+		fullscreen_key = "gF",
+		quote_key = "<leader>aq",
+		resize = {
+			-- prefix = "<C-w>",
+			-- keys = { grow = "k", shrink = "j", narrow = "h", widen = "l" },
+			steps = { grow = 8, shrink = 8, narrow = 8, widen = 8 },
+		},
+		input = {
+			adapter = "auto",
+			select_default = true,
+		},
+		icons = {
+			expanded = "▾",
+			collapsed = "▸",
+			busy = "◐",
+			idle = "●",
+			waiting = "?",
+			exited = "✗",
+			stopped = "○",
+		},
+	},
+	chat = {
+		transcript = {
+			max_tool_lines = 20,
+			decorations = true,
+			show_usage = true,
+			image_previews = true,
+			line_numbers = {
+				show = true,
+				relative = true,
+			},
+		},
+		prompt = {
+			height = 25,
+			tab_completion = false,
+			line_numbers = {
+				show = true,
+				relative = true,
+			},
+		},
+	},
 	agents = {
-		claude = { cmd = { "claude" }, resume = { "claude", "--continue" }, key = "c" },
-		codex = { cmd = { "codex" }, resume = { "codex", "resume", "--last" }, key = "x" },
-		opencode = { cmd = { "opencode" }, resume = { "opencode", "--continue" }, key = "o" },
+		claude = {
+			cmd = { "claude" },
+			resume = { "claude", "--continue" },
+			key = "c",
+		},
+		codex = {
+			cmd = { "codex" },
+			resume = { "codex", "resume", "--last" },
+			key = "x",
+		},
+		opencode = {
+			cmd = { "opencode" },
+			resume = { "opencode", "--continue" },
+			key = "o",
+		},
 		["claude-agent-acp"] = {
 			type = "acp",
 			cmd = { "npx", "-y", "@agentclientprotocol/claude-agent-acp" },
 			key = "C",
 		},
-		["codex-acp"] = { type = "acp", cmd = { "npx", "-y", "@agentclientprotocol/codex-acp" }, key = "X" },
-		["opencode-acp"] = { type = "acp", cmd = { "opencode", "acp" }, key = "O" },
+		["codex-acp"] = {
+			type = "acp",
+			cmd = { "npx", "-y", "@agentclientprotocol/codex-acp" },
+			key = "X",
+		},
+		["opencode-acp"] = {
+			type = "acp",
+			cmd = { "opencode", "acp" },
+			key = "O",
+		},
+	},
+	mcp = {
+		executable = aero_mcp_exe or false,
 	},
 	reading = {
 		agent = {
 			enabled = true,
 		},
 		explanation = {
-			unfold = true, -- default; false preserves your normal folding defaults
-		},
-	},
-	worktree_path = function(ws, branch)
-		return vim.fs.joinpath(
-			vim.fs.dirname(ws.root),
-			vim.fs.basename(ws.root) .. ".worktrees",
-			(branch:gsub("/", "-"))
-		)
-	end,
-	dashboard = { position = "left", width = 40 }, -- left | right | current
-	panel = { position = "right", width = 80 }, -- left | right; false uses last window
-	worktree_tabs = true,
-	terminal = { height = 24, cmd = nil }, -- nil uses { vim.o.shell }
-	idle_ms = 1500, -- terminal output inactivity before idle
-	notify_idle = true, -- notify when hidden sessions become idle
-	start_insert = true,
-	animation = true,
-	fullscreen_key = "gF", -- false disables
-	quote_key = "<leader>aq", -- false disables
-	resize = {
-		-- prefix = "<C-w>",
-		-- keys = { grow = "k", shrink = "j", narrow = "h", widen = "l" },
-		steps = { grow = 8, shrink = 8, narrow = 8, widen = 8 },
-	},
-	persist_sessions = true,
-	prompt_session_name = true, -- ask for a name with `a` or agent shortcuts; false uses automatic names
-	input = { adapter = "auto", select_default = true }, -- auto | dressing | snacks | vim_ui | function
-	persist_buffers = true,
-	state_file = vim.fn.stdpath("data") .. "/Aero/state.json",
-	events = {}, -- event name -> function or list of functions; "*" observes all events
-	layout = { min_code_width = 20 }, -- false disables automatic side-column rebalancing
-	acp = {
-		max_tool_lines = 20, -- truncate tool output in transcripts
-		prompt_height = 25,
-		decorations = true, -- native transcript cards, colors, and visual borders
-		show_usage = true, -- agent-reported tokens, context usage, and cumulative fees
-		image_previews = true,
-		tab_completion = false,
-		line_numbers = {
-			transcript = {
-				show = true,
-				relative = true,
-			},
-			prompt = {
-				show = true,
-				relative = true,
-			},
+			unfold = true,
 		},
 	},
 	reports = {
-		directory = "data", -- data | worktree | custom root | function(worktree, workspace_root)
+		directory = "data",
 		prompt = "Report file: {path}\nRead this Markdown report for context and write or update the report at this path with your findings.",
 	},
 	tasks = {
-		directory = "data", -- data | worktree | custom root | function(workspace_root)
+		directory = "data",
 		yq = vim.env.AERO_TASKS_YQ or "yq",
 		states = { "backlog", "todo", "in progress", "review", "test", "done" },
 		terminal_states = { "done" },
 		estimate_unit = "points",
 		column_width = 32,
 		agent = {
-			enabled = true, -- opt in to task tools for ACP sessions
-			executable = kanban_mcp_exe or false,
-			adapters = { "opencode-acp", "claude-agent-acp", "codex-acp" }, -- allowed names from the agents table
+			enabled = true,
+			adapters = { "opencode-acp", "claude-agent-acp", "codex-acp" },
 			prompt = "Read the ticket through Aero's task tools and implement its requirements. Record progress and verification results with aero_update_ticket_body. Discover current board states before explicitly moving the ticket with aero_move_ticket. Do not write the task documents directly.",
 		},
 		keymaps = {
@@ -118,42 +204,6 @@ aero.setup({
 			help = "g?",
 		},
 	},
-	keymaps = { -- dashboard mappings; false disables an entry
-		open = "<CR>",
-		expand = "l",
-		collapse = "h",
-		toggle = "<Tab>",
-		open_vsplit = "<C-v>",
-		open_split = "<C-x>",
-		open_tab = "<C-t>",
-		add = "a",
-		add_workspace = "A",
-		delete = "d",
-		stop = "s",
-		restart = "r",
-		rename = "N",
-		refresh = "R",
-		pull = "P",
-		cd = ".",
-		edit = "e",
-		open_board_markdown = "I",
-		edit_enter = "<C-CR>",
-		edit_mouse = "<C-LeftMouse>",
-		terminal = "t",
-		next_workspace = "]]",
-		prev_workspace = "[[",
-		close = "q",
-		help = "g?",
-	},
-	icons = {
-		expanded = "▾",
-		collapsed = "▸",
-		busy = "◐",
-		idle = "●",
-		waiting = "?",
-		exited = "✗",
-		stopped = "○",
-	},
 	companion = {
 		bind = tailscale_ip or "127.0.0.1",
 		port = 8765,
@@ -168,6 +218,7 @@ aero.setup({
 	mermaid = {
 		enabled = true,
 	},
+	events = {},
 })
 
 --
