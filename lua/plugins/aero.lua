@@ -330,3 +330,7 @@ end, { desc = "New agent session" })
 vim.keymap.set("n", "<leader>as", function()
 	require("aero").pick("current")
 end, { desc = "Select worktree session" })
+
+vim.keymap.set("n", "<leader>ag", function()
+	require("aero.general").new(require("aero.config").options.default_agent)
+end, { desc = "Aero: new general chat with default agent" })
