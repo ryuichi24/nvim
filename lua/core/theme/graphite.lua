@@ -62,9 +62,14 @@ require("tokyonight").setup({
 		colors.diff = { add = "#233025", change = "#242D35", delete = "#362525", text = "#354553" }
 	end,
 	on_highlights = function(hl, colors)
-		hl.Folded = { fg = colors.fg_dark, bg = colors.bg_highlight, italic = true }
+		-- Collapsed-fold background; customize for this theme.
+		hl.Folded = { fg = colors.fg_dark, bg = "#354A57", italic = true }
 		hl.DiagnosticUnnecessary = { fg = colors.comment, italic = true }
 	end,
 })
 
 vim.cmd.colorscheme("tokyonight")
+
+-- Aero collapsed summaries, independent of expanded card headers.
+local aero_folded_bg = "#354A57"
+vim.api.nvim_set_hl(0, "AeroChatFolded", { bg = aero_folded_bg })

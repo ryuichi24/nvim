@@ -20,3 +20,10 @@ require("catppuccin").setup({
 })
 
 vim.cmd.colorscheme("catppuccin")
+
+-- Collapsed-fold background; customize for this theme.
+vim.cmd.highlight("Folded guibg=#45475A")
+
+-- Aero collapsed summaries, independent of expanded card headers.
+local aero_folded_bg = "#45475A"
+vim.api.nvim_set_hl(0, "AeroChatFolded", { bg = aero_folded_bg })

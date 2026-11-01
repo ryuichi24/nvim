@@ -15,3 +15,10 @@ require("kanagawa").setup({
 
 vim.o.background = "dark"
 vim.cmd.colorscheme("kanagawa-wave")
+
+-- Collapsed-fold background; customize for this theme.
+vim.cmd.highlight("Folded guibg=#2D4F67")
+
+-- Aero collapsed summaries, independent of expanded card headers.
+local aero_folded_bg = "#2D4F67"
+vim.api.nvim_set_hl(0, "AeroChatFolded", { bg = aero_folded_bg })
