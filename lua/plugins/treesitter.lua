@@ -32,6 +32,7 @@ treesitter.install({
 	"java",
 	"xml",
 	"proto",
+	"swift",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -50,6 +51,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		"yaml",
 		"powershell",
 		"xml",
+		"swift",
 	},
 	callback = function()
 		vim.treesitter.start()
