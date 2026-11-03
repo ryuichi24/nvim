@@ -18,6 +18,12 @@ oil.setup({
 		-- Custom oil keymaps
 		["<C-p>"] = { "actions.preview", opts = { split = "belowright" } },
 		["<leader>cc"] = { "actions.cd", opts = { scope = "tab", remap = false } },
+		["<leader>oo"] = {
+			callback = function()
+				vim.fn.jobstart({ "open", "-a", "Finder", oil.get_current_dir() })
+			end,
+			desc = "Open current directory in Finder",
+		},
 	},
 	view_options = {
 		show_hidden = true,
