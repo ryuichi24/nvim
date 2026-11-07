@@ -101,6 +101,12 @@ aero.setup({
 			stopped = "○",
 		},
 	},
+	browser = {
+		agent = { enabled = true },
+		cmd = { "/opt/homebrew/bin/terminal-browser" },
+		cell_width = 21,
+		cell_height = 40,
+	},
 	chat = {
 		transcript = {
 			max_tool_lines = 20,
@@ -154,7 +160,7 @@ aero.setup({
 		},
 	},
 	mcp = {
-		executable = aero_mcp_exe or false,
+		executable = aero_mcp_exe or "/Users/ryu/dev/personal/projects/aero.nvim/apps/mcp/aero-mcp",
 	},
 	reading = {
 		agent = {
@@ -287,6 +293,10 @@ vim.keymap.set("n", "<leader>rl", function()
 	aero.reader("reading")
 end, { desc = "Reader: Reading List" })
 
+vim.keymap.set("n", "<leader>rb", function()
+	aero.reader("browser")
+end, { desc = "Reader: Browser" })
+
 -- Change the display mode.
 vim.keymap.set("n", "<leader>rm", function()
 	aero.reader()
@@ -334,3 +344,22 @@ end, { desc = "Select worktree session" })
 vim.keymap.set("n", "<leader>ag", function()
 	require("aero.general").new(require("aero.config").options.default_agent)
 end, { desc = "Aero: new general chat with default agent" })
+
+vim.api.nvim_create_autocmd("User", {
+	pattern = "AeroTerminalOpened",
+	callback = function(ev)
+		vim.keymap.set({ "n", "t" }, "<leader>wk", function()
+			require("aero.terminal").action("split")
+		end, {
+			buffer = ev.data.buf,
+			desc = "Aero: split terminal horizontally",
+		})
+
+		vim.keymap.set({ "n", "t" }, "<leader>wl", function()
+			require("aero.terminal").action("vsplit")
+		end, {
+			buffer = ev.data.buf,
+			desc = "Aero: split terminal vertically",
+		})
+	end,
+})
