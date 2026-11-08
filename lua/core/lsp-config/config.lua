@@ -58,6 +58,8 @@ vim.lsp.enable({
 	"lua_ls",
 	"gopls",
 	"vtsls",
+	"vue_ls",
+	"astro",
 	"tailwindcss",
 	"clangd",
 	"jsonls",
