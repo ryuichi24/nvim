@@ -53,6 +53,12 @@ vim.lsp.config["*"] = {
 	capabilities = capabilities,
 }
 
+-- Explicit overrides take precedence over nvim-lspconfig's runtime files.
+local config_root = vim.fs.dirname(vim.fs.dirname(vim.fs.dirname(vim.fs.dirname(debug.getinfo(1, "S").source:sub(2)))))
+for _, name in ipairs({ "astro", "vue_ls", "vtsls" }) do
+	vim.lsp.config(name, dofile(vim.fs.joinpath(config_root, "lsp", name .. ".lua")))
+end
+
 -- https://github.com/neovim/nvim-lspconfig?tab=readme-ov-file#important-%EF%B8%8F
 vim.lsp.enable({
 	"lua_ls",
