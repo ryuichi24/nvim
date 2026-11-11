@@ -43,7 +43,6 @@ aero.setup({
 				toggle = "<Tab>",
 				open_vsplit = "<C-v>",
 				open_split = "<C-x>",
-				open_tab = "<C-t>",
 				add = "a",
 				add_workspace = "A",
 				delete = "d",
@@ -348,18 +347,50 @@ end, { desc = "Aero: new general chat with default agent" })
 vim.api.nvim_create_autocmd("User", {
 	pattern = "AeroTerminalOpened",
 	callback = function(ev)
-		vim.keymap.set({ "n", "t" }, "<leader>wk", function()
+		-- Ctrl+punctuation requires terminal keyboard-protocol support.
+		-- Ctrl+w sequences also work in terminals using legacy key encoding.
+		local function map(lhs, action, desc)
+			vim.keymap.set({ "n", "t" }, lhs, function()
+				require("aero.terminal").action(action)
+			end, { buffer = ev.data.buf, desc = desc })
+		end
+
+		map("<C-w>-", "split", "Aero: split terminal horizontally")
+		map("<C-w>|", "vsplit", "Aero: split terminal vertically")
+		map("<C-w>t", "new", "Aero: new terminal tab")
+
+		vim.keymap.set({ "n", "t" }, "<C-->", function()
 			require("aero.terminal").action("split")
 		end, {
 			buffer = ev.data.buf,
 			desc = "Aero: split terminal horizontally",
 		})
 
-		vim.keymap.set({ "n", "t" }, "<leader>wl", function()
+		vim.keymap.set({ "n", "t" }, "<C-|>", function()
 			require("aero.terminal").action("vsplit")
 		end, {
 			buffer = ev.data.buf,
 			desc = "Aero: split terminal vertically",
 		})
+
+		vim.keymap.set({ "n", "t" }, "<C-n>", function()
+			require("aero.terminal").action("new")
+		end, {
+			buffer = ev.data.buf,
+			desc = "Aero: new terminal tab",
+		})
+
+		vim.keymap.set({ "n", "t" }, "<C-t>", function()
+			require("aero.terminal").action("next")
+		end, { desc = "Next Aero terminal tab" })
+
+		vim.keymap.set({ "n", "t" }, "<C-g>", function()
+			require("aero.terminal").action("prev")
+		end, { desc = "Previous Aero terminal tab" })
 	end,
 })
+
+-- scene
+vim.keymap.set("n", "<leader>ss", function()
+	require("aero").scene()
+end, { desc = "Aero: select scene" })
