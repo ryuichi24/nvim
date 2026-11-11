@@ -14,6 +14,8 @@ conform.setup({
 		typescript = { "prettier" },
 		javascriptreact = { "prettier" },
 		typescriptreact = { "prettier" },
+		astro = { "prettier" },
+		vue = { "prettier" },
 		go = { "goimports", "gofmt" },
 		svelte = { "prettier" },
 		css = { "prettier" },
@@ -35,22 +37,22 @@ conform.setup({
 	},
 	formatters = {
 		prettier = {
-			-- how conform finds the prettier config file
+			-- Keep plugin resolution in the project, even without a Prettier config.
 			cwd = function(self, ctx)
-				-- Try project root first
-				local project_root = require("conform.formatters.prettierd").cwd(self, ctx)
-				if project_root then
-					return project_root
+				return require("conform.formatters.prettierd").cwd(self, ctx)
+					or vim.fs.root(ctx.dirname, { "package.json", ".git" })
+					or ctx.dirname
+			end,
+			prepend_args = function(self, ctx)
+				-- Let Prettier discover project configs before using the fallback.
+				if require("conform.formatters.prettierd").cwd(self, ctx) then
+					return {}
 				end
-
-				-- Fallback to home directory
 				local home_config = vim.fs.joinpath(vim.fn.expand("~"), ".config", "formatter", ".prettierrc")
-				print("Checking for prettier config at: " .. home_config)
 				if vim.fn.filereadable(home_config) == 1 then
-					return vim.fn.expand("~")
+					return { "--config", home_config }
 				end
-
-				return nil
+				return {}
 			end,
 		},
 	},
