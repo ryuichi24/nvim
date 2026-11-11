@@ -2,7 +2,15 @@ local logger = require("utils.logger"):new({ name = "plugins.dbc" })
 
 logger:debug("Loading plugins.dbc...")
 
-vim.pack.add({ "https://github.com/ryuichi24/dbc.nvim" })
+-- Load the working checkout directly so uncommitted plugin changes are available.
+local checkout = vim.fn.expand("~/dev/personal/projects/dbc.nvim")
+
+if vim.fn.isdirectory(checkout .. "/lua/dbc") == 1 then
+	vim.opt.runtimepath:prepend(checkout)
+	vim.cmd.runtime("plugin/dbc.lua")
+else
+	vim.pack.add({ "https://github.com/ryuichi24/dbc.nvim" })
+end
 
 require("dbc").setup({
 	connections = {
@@ -37,10 +45,11 @@ require("dbc").setup({
 	execution = { timeout_ms = 60000 },
 	ui = {
 		panes = {
-			sidebar = { number = true, relativenumber = true },
+			sidebar = { number = true, relativenumber = true, width = 50 },
 			query = { number = true, relativenumber = true },
-			results = { number = true, relativenumber = true },
+			results = { number = true, relativenumber = true, height = 30 },
 		},
+		resize_step = 8,
 	},
 })
 
