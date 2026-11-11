@@ -55,7 +55,7 @@ vim.lsp.config["*"] = {
 
 -- Explicit overrides take precedence over nvim-lspconfig's runtime files.
 local config_root = vim.fs.dirname(vim.fs.dirname(vim.fs.dirname(vim.fs.dirname(debug.getinfo(1, "S").source:sub(2)))))
-for _, name in ipairs({ "astro", "vue_ls", "vtsls" }) do
+for _, name in ipairs({ "astro", "vue_ls", "vtsls", "pyright" }) do
 	vim.lsp.config(name, dofile(vim.fs.joinpath(config_root, "lsp", name .. ".lua")))
 end
 
@@ -66,6 +66,7 @@ vim.lsp.enable({
 	"vtsls",
 	"vue_ls",
 	"astro",
+	"pyright",
 	"tailwindcss",
 	"clangd",
 	"jsonls",
