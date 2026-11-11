@@ -90,7 +90,21 @@ cmp.setup({
 		{ name = "buffer" },
 	}),
 	mapping = cmp.mapping.preset.insert({
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<CR>"] = cmp.mapping(function(fallback)
+			local cursor = vim.api.nvim_win_get_cursor(0)
+			local before_cursor = vim.api.nvim_get_current_line():sub(1, cursor[2])
+			if vim.bo.filetype == "markdown" and before_cursor:match("table:[1-9]%d*x[1-9]%d*$") then
+				local ls = require("luasnip")
+				if ls.expandable() then
+					cmp.abort()
+					ls.expand()
+					return
+				end
+			end
+			if not cmp.confirm({ select = true }) then
+				fallback()
+			end
+		end, { "i", "s" }),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-d>"] = cmp.mapping.scroll_docs(4),
 		["<C-u>"] = cmp.mapping.scroll_docs(-4),
