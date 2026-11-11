@@ -6,3 +6,4 @@ require("modules.snippets.config")
 
 require("modules.snippets.go_snip")
 require("modules.snippets.js_snip")
+require("modules.snippets.markdown")
