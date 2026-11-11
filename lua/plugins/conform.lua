@@ -30,9 +30,8 @@ conform.setup({
 		java = { "google-java-format" },
 		xml = { "xmlformatter" },
 	},
-	format_on_save = {
+	format_after_save = {
 		lsp_fallback = false,
-		async = false,
 		timeout_ms = 1000,
 	},
 	formatters = {
