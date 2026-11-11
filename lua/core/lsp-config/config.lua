@@ -82,8 +82,61 @@ vim.lsp.enable({
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 
+cmp.register_source("markdown_table", {
+	is_available = function()
+		return vim.bo.filetype == "markdown"
+	end,
+	get_keyword_pattern = function()
+		return [[table:\d*\%(x\d*\)\?\|\k\+]]
+	end,
+	complete = function(_, params, callback)
+		local start, prefix = params.context.cursor_before_line:match("()%f[%w]table:?(%d*x?%d*)$")
+		if prefix == nil then
+			callback({ items = {}, isIncomplete = true })
+			return
+		end
+		local columns, rows = prefix:match("^(%d*)x(%d*)$")
+		columns = columns or prefix
+		columns = tonumber(columns) or 3
+		rows = tonumber(rows) or 3
+		if columns < 1 or rows < 1 then
+			callback({ items = {}, isIncomplete = true })
+			return
+		end
+		local trigger = "table:" .. columns .. "x" .. rows
+		callback({
+			isIncomplete = true,
+			items = {
+				{
+					label = trigger,
+					kind = cmp.lsp.CompletionItemKind.Snippet,
+					detail = columns .. " columns, " .. rows .. " body rows",
+					textEdit = {
+						newText = trigger,
+						range = {
+							start = {
+								line = params.context.cursor.row - 1,
+								character = vim.str_utfindex(params.context.cursor_before_line, "utf-16", start - 1),
+							},
+							["end"] = {
+								line = params.context.cursor.row - 1,
+								character = vim.str_utfindex(params.context.cursor_before_line, "utf-16"),
+							},
+						},
+					},
+				},
+			},
+		})
+	end,
+	execute = function(_, _, callback)
+		require("luasnip").expand()
+		callback()
+	end,
+})
+
 cmp.setup({
 	sources = cmp.config.sources({
+		{ name = "markdown_table" },
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
 		{ name = "path" },
